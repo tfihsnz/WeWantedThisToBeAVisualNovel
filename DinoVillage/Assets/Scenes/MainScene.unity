@@ -4681,6 +4681,7 @@ GameObject:
   - component: {fileID: 1953378197}
   - component: {fileID: 1953378196}
   - component: {fileID: 1953378195}
+  - component: {fileID: 1953378199}
   m_Layer: 5
   m_Name: Main_Canvas
   m_TagString: Untagged
@@ -4769,6 +4770,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1953378199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953378194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e193ecddf673c4d8438a4547961bcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  population: 0
+  populationText: {fileID: 1336022180}
+  unemployed: 0
+  unemployedText: {fileID: 435999725}
+  food: 0
+  foodText: {fileID: 1698447987}
+  income: 0
+  incomeText: {fileID: 366046413}
+  hunting: 0
+  huntingCap: 0
+  huntingText: {fileID: 2073415664}
+  mining: 0
+  miningCap: 0
+  miningText: {fileID: 1688332152}
+  scouting: 0
+  scoutingCap: 0
+  scoutingText: {fileID: 1012419830}
+  cycleTime: 0
+  foodRateD: 0
+  foodRateI: 0
+  incomeRateD: 0
+  incomeRateI: 0
+  popCounter: 0
 --- !u!1 &2006625153
 GameObject:
   m_ObjectHideFlags: 0

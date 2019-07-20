@@ -169,5 +169,136 @@ public class VariableManager : MonoBehaviour {
         }
     }
 
-    
+    public void IncreaseMining() {
+        if (population > 0 && mining < miningCap) {
+            mining++;
+            population--;
+            unemployed--;
+        }
+    }
+
+    public void IncreaseMining5() {
+        if (population > 4 && (miningCap - mining) > 4) {
+            mining = mining + 5;
+            population = population - 5;
+            unemployed = unemployed - 5;
+        } else if (population > 3 && (miningCap - mining) == 4) {
+            mining = mining + 4;
+            population = population - 4;
+            unemployed = unemployed - 4;
+        } else if (population > 2 && (miningCap - mining) == 3) {
+            mining = mining + 3;
+            population = population - 3;
+            unemployed = unemployed - 3;
+        } else if (population > 1 && (miningCap - mining) == 2) {
+            mining = mining + 2;
+            population = population - 2;
+            unemployed = unemployed - 2;
+        } else if (population > 0 && (miningCap - mining) == 1) {
+            mining = mining + 1;
+            population = population - 1;
+            unemployed = unemployed - 1;
+        }
+    }
+
+    public void DecreaseMining() {
+        if (mining > 0) {
+            mining--;
+            population++;
+            unemployed++;
+        }
+    }
+
+    public void DecreaseMining5() {
+        if (mining > 0) {
+            if (mining > 4) {
+                mining = mining - 5;
+                population = population + 5;
+                unemployed = unemployed + 5;
+            } else if (mining == 4) {
+                mining = mining - 4;
+                population = population + 4;
+                unemployed = unemployed + 4;
+            } else if (mining == 3) {
+                mining = mining - 3;
+                population = population + 3;
+                unemployed = unemployed + 3;
+            } else if (mining == 2) {
+                mining = mining - 2;
+                population = population + 2;
+                unemployed = unemployed + 2;
+            } else if (mining == 1) {
+                mining = mining - 1;
+                population = population + 1;
+                unemployed = unemployed + 1;
+            }
+        }
+    }
+
+    public void IncreaseScouting() {
+        if (population > 0 && scouting < scoutingCap) {
+            scouting++;
+            population--;
+            unemployed--;
+        }
+    }
+
+    public void IncreaseScouting5() {
+        if (population > 4 && (scoutingCap - scouting) > 4) {
+            scouting = scouting + 5;
+            population = population - 5;
+            unemployed = unemployed - 5;
+        } else if (population > 3 && (scoutingCap - scouting) == 4) {
+            scouting = scouting + 4;
+            population = population - 4;
+            unemployed = unemployed - 4;
+        } else if (population > 2 && (scoutingCap - scouting) == 3) {
+            scouting = scouting + 3;
+            population = population - 3;
+            unemployed = unemployed - 3;
+        } else if (population > 1 && (scoutingCap - scouting) == 2) {
+            scouting = scouting + 2;
+            population = population - 2;
+            unemployed = unemployed - 2;
+        } else if (population > 0 && (scoutingCap - scouting) == 1) {
+            scouting = scouting + 1;
+            population = population - 1;
+            unemployed = unemployed - 1;
+        }
+    }
+
+    public void DecreaseScouting() {
+        if (scouting > 0) {
+            scouting--;
+            population++;
+            unemployed++;
+        }
+    }
+
+    public void DecreaseScouting5() {
+        if (scouting > 0) {
+            if (scouting > 4) {
+                scouting = scouting - 5;
+                population = population + 5;
+                unemployed = unemployed + 5;
+            } else if (scouting == 4) {
+                scouting = scouting - 4;
+                population = population + 4;
+                unemployed = unemployed + 4;
+            } else if (scouting == 3) {
+                scouting = scouting - 3;
+                population = population + 3;
+                unemployed = unemployed + 3;
+            } else if (scouting == 2) {
+                scouting = scouting - 2;
+                population = population + 2;
+                unemployed = unemployed + 2;
+            } else if (scouting == 1) {
+                scouting = scouting - 1;
+                population = population + 1;
+                unemployed = unemployed + 1;
+            }
+        }
+    }
+
 }
