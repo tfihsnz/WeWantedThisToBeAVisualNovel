@@ -1,10 +1,7 @@
 fileFormatVersion: 2
-guid: 1f76c1268c277d6468d07415e9cf4b01
+guid: ff05d1921de54ab408c8a414f211219b
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -4232372475135122399
-    second: 0x72_16x16DungeonTileset.v4_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -43,12 +40,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 28
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -85,32 +82,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: 0x72_16x16DungeonTileset.v4_0
-      rect:
-        serializedVersion: 2
-        x: 163
-        y: 16
-        width: 10
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a35ecb45fbfff841a269303ca557abc
-      internalID: -4232372475135122399
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5bfb4bab682badf4cbedb32c87033604
+    spriteID: fbc56a70f56d2de49abe08ee9b6d760c
     internalID: 0
     vertices: []
     indices: 
