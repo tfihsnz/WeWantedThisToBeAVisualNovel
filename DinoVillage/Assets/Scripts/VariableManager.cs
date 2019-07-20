@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class VariableManager : MonoBehaviour {
 
     //main variables
-    public int population;
+    public float population;
     public Text populationText;
     public float unemployed;
     public Text unemployedText;
@@ -45,6 +45,7 @@ public class VariableManager : MonoBehaviour {
     public float incomeRateI;
     //public float happinessRateD;
     //public float happinessRateI;
+    public float populationRateI;
 
     public int upgHuntingCount;
     public int upgMiningCount;
@@ -74,6 +75,20 @@ public class VariableManager : MonoBehaviour {
         currentTime -= Time.deltaTime;
         cycleTime += Time.deltaTime;
 
+        if (population < (unemployed + hunting + mining + scouting)) {
+            if (unemployed > 0) {
+                unemployed--;
+            } else if (scouting > 0) {
+                scouting--;
+            } else if (hunting > 0) {
+                hunting--;
+            } else if (mining > 0) {
+                mining--;
+            }
+        }
+
+        unemployed = population - hunting - mining - scouting;
+
         //text updates
         populationText.text = "Population: " + population.ToString("00");
         foodText.text = "Food: " + food.ToString("00");
@@ -88,9 +103,10 @@ public class VariableManager : MonoBehaviour {
         scoutingCapText.text = scoutingCap.ToString("00");
 
         foodRateD = (population * 0.09f + 8) / 10;
-        foodRateI = (hunting * 1.9f);
+        foodRateI = (hunting * 0.25f);
         incomeRateD = (mining * 0.09f + 8) / 10;
-        incomeRateI = (mining * 1.9f);
+        incomeRateI = (mining * 0.25f);
+        populationRateI = (scouting * 0.25f);
 
         if (cycleTime >= 3) {
             //update variables
@@ -100,6 +116,22 @@ public class VariableManager : MonoBehaviour {
             income = income - incomeRateD;
             //happiness = happiness + happinessRateI;
             //happiness = happiness - happinessRateD;
+            population = population + populationRateI;
+
+            if (food <= 0) {
+                population = population - 10;
+            }
+
+            if (income <= 0) {
+                population = population - 5;
+                food = food - 5;
+            }
+
+            int i = Random.Range(1, 100);
+
+            if (i < 6) {
+                //job event
+            } 
 
             cycleTime = 0;
         }
@@ -107,6 +139,10 @@ public class VariableManager : MonoBehaviour {
 
         if (currentTime <= 0f) {
             //event!! yay omg yes amazing hurrah.
+            int j = Random.Range(1, 100);
+
+
+
             //Time.timeScale = 0;
             popCounter++;
             currentTime = 30f;
@@ -116,6 +152,20 @@ public class VariableManager : MonoBehaviour {
             population++;
             unemployed++;
             popCounter = 0;
+        }
+
+        if (population <= 0) {
+            //Game Over;
+            population = 0;
+            Time.timeScale = 0;
+        }
+
+        if (food <= 0) {
+            food = 0;
+        }
+
+        if (income <= 0) {
+            income = 0;
         }
     }
 
@@ -306,3 +356,4 @@ public class VariableManager : MonoBehaviour {
     }
 
 }
+
