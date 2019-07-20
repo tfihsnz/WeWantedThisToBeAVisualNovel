@@ -54,6 +54,11 @@ public class VariableManager : MonoBehaviour {
 
     public int popCounter = 0;
 
+    private bool orbReceived;
+    private bool itemReceived;
+    private bool weaponsReceived;
+    private bool rottenFoodReceived;
+
     // Start is called before the first frame update
     void Start() {
         population = 10;
@@ -144,6 +149,7 @@ public class VariableManager : MonoBehaviour {
                         population = population - huntingTemp;
                     }
                 } else if (k <= 200 && mining > 0) {
+                    //mining event
                     if (k <= 120) {
                         income = income + 20;
                     } else if (k <= 125) {
@@ -161,13 +167,37 @@ public class VariableManager : MonoBehaviour {
 
         if (currentTime <= 0f) {
             //event!! yay omg yes amazing hurrah.
-            int j = Random.Range(1, 100);
+            //Time.timeScale = 0;
+            int b = Random.Range(1, 100);
 
-            if (j < 21) {
-
+            if (orbReceived && rottenFoodReceived) {
+                if (b <= 20) {
+                    //zombie apocalypse
+                } else if (b <= 40) {
+                    //rotten food
+                } else if (b <= 60) {
+                    //merchant
+                } else if (b <= 80) {
+                    //invasion
+                } else if (b <= 99) {
+                    //coup d'etat
+                } else if (b == 100) {
+                    //meteorite
+                }
+            } else {
+                if (b <= 25) {
+                    //rotten food
+                } else if (b <= 50) {
+                    //merchant
+                } else if (b <= 75) {
+                    //invasion
+                } else if (b <= 99) {
+                    //coup d'etat
+                } else if (b == 100) {
+                    //meteorite
+                }
             }
 
-            //Time.timeScale = 0;
             popCounter++;
             currentTime = 30f;
         }
@@ -176,9 +206,19 @@ public class VariableManager : MonoBehaviour {
             population++;
             unemployed++;
 
+            //scouting events
             int a = Random.Range(1, 300);
 
-            if ()
+            if (a <= 15) {
+                //orb event
+                orbReceived = true;
+            } else if (a <= 30) {
+                //weapons event
+                weaponsReceived = true;
+            } else if (a < 45) {
+                //merchant item
+                itemReceived = true;
+            }
 
             popCounter = 0;
         }
