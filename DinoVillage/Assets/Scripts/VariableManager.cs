@@ -59,8 +59,7 @@ public class VariableManager : MonoBehaviour {
         incomeText.text = "Income: " + income.ToString("00");
         happinessText.text = "Happiness: " + happiness.ToString("00");
 
-        foodRateD = (population * 0.09 + 8) / 10;
-        foodRateI = 
+        foodRateD = (population * 0.09f + 8) / 10;
 
         if (cycleTime >= 3) {
             //update variables
