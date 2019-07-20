@@ -212,6 +212,10 @@ MonoBehaviour:
   foodRateI: 0
   incomeRateD: 0
   incomeRateI: 0
+  upgHuntingCount: 0
+  upgMiningCount: 0
+  upgScoutingCount: 0
+  upgCost: 0
   popCounter: 0
 --- !u!1 &1977489989287467065
 GameObject:
@@ -1494,7 +1498,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1977489989946260142}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2137891244}
+        m_MethodName: UpgradeScouting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1977489989965673458
@@ -1909,7 +1924,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1977489990007382692}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2137891244}
+        m_MethodName: UpgradeMining
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1977489990024631410
@@ -2376,7 +2402,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1977489990123725983}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2137891244}
+        m_MethodName: UpgradeHunting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1977489990124530631

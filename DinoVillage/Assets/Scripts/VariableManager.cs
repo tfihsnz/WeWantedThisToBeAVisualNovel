@@ -46,6 +46,11 @@ public class VariableManager : MonoBehaviour {
     //public float happinessRateD;
     //public float happinessRateI;
 
+    public int upgHuntingCount;
+    public int upgMiningCount;
+    public int upgScoutingCount;
+    public int upgCost;
+
     public int popCounter = 0;
 
     // Start is called before the first frame update
@@ -58,6 +63,10 @@ public class VariableManager : MonoBehaviour {
         miningCap = 5;
         scoutingCap = 5;
         //happiness = 5;
+        upgCost = 30;
+        upgHuntingCount = 1;
+        upgMiningCount = 1;
+        upgScoutingCount = 1;
     }
 
     // Update is called once per frame
@@ -98,13 +107,14 @@ public class VariableManager : MonoBehaviour {
 
         if (currentTime <= 0f) {
             //event!! yay omg yes amazing hurrah.
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             popCounter++;
             currentTime = 30f;
         }
 
         if (popCounter == 2) {
             population++;
+            unemployed++;
             popCounter = 0;
         }
     }
@@ -268,6 +278,30 @@ public class VariableManager : MonoBehaviour {
                 scouting = scouting - 1;
                 unemployed = unemployed + 1;
             }
+        }
+    }
+
+    public void UpgradeHunting() {
+        if (income > (30 * upgHuntingCount)) {
+            income = income - (30 * upgHuntingCount);
+            upgHuntingCount++;
+            huntingCap = huntingCap + 5;
+        }
+    }
+
+    public void UpgradeMining() {
+        if (income > (30 * upgMiningCount)) {
+            income = income - (30 * upgMiningCount);
+            upgMiningCount++;
+            miningCap = miningCap + 5;
+        }
+    }
+
+    public void UpgradeScouting() {
+        if (income > (30 * upgScoutingCount)) {
+            income = income - (30 * upgScoutingCount);
+            upgScoutingCount++;
+            scoutingCap = scoutingCap + 5;
         }
     }
 
