@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class VariableManager : MonoBehaviour {
 
     //main variables
-    public float population;
+    public int population;
     public Text populationText;
-    public float unemployed;
+    public int unemployed;
     public Text unemployedText;
-    public float food;
+    public int food;
     public Text foodText;
-    public float income;
+    public int income;
     public Text incomeText;
     //public float happiness;
     //public Text happinessText;
@@ -37,15 +37,16 @@ public class VariableManager : MonoBehaviour {
     //time shit
     public float cycleTime = 0f;
     private float currentTime = 30f;
+    public int cycleRounds = 0;
 
     //rate of increase and decrease
-    public float foodRateD;
-    public float foodRateI;
-    public float incomeRateD;
-    public float incomeRateI;
+    public int foodRateD;
+    public int foodRateI;
+    public int incomeRateD;
+    public int incomeRateI;
     //public float happinessRateD;
     //public float happinessRateI;
-    public float populationRateI;
+    public int populationRateI;
 
     public int upgHuntingCount;
     public int upgMiningCount;
@@ -111,11 +112,11 @@ public class VariableManager : MonoBehaviour {
         scoutingText.text = scouting.ToString("00");
         scoutingCapText.text = scoutingCap.ToString("00");
 
-        foodRateD = (population * 0.09f + 8) / 10;
-        foodRateI = (hunting * 0.25f);
-        incomeRateD = (mining * 0.09f + 8) / 10;
-        incomeRateI = (mining * 2f);
-        populationRateI = (scouting * 0.25f);
+        foodRateD = Mathf.RoundToInt((population * 0.09f + 8) / 10) + 1;
+        foodRateI = Mathf.RoundToInt((hunting * 0.25f)) + 1;
+        incomeRateD = Mathf.RoundToInt((mining * 0.09f + 8) / 10) + 1;
+        incomeRateI = Mathf.RoundToInt((mining * 2f)) + 1;
+        populationRateI = Mathf.RoundToInt((scouting * 0.25f)) + 1;
 
         upgHuntingText.text = (30 * upgHuntingCount).ToString("00");
         upgMiningText.text = (30 * upgMiningCount).ToString("00");
@@ -151,20 +152,20 @@ public class VariableManager : MonoBehaviour {
                     if (k <= 20) {
                         food = food + 20;
                     } else if (k <= 25) {                        
-                        float huntingTemp;
+                        int huntingTemp;
                         huntingTemp = hunting;
                         hunting = 0;
-                        population = population - huntingTemp;
+                        population -= huntingTemp;
                     }
                 } else if (k <= 200 && mining > 0) {
                     //mining event
                     if (k <= 120) {
                         income = income + 20;
                     } else if (k <= 125) {
-                        float miningTemp;
+                        int miningTemp;
                         miningTemp = mining;
                         mining = 0;
-                        population = population - miningTemp;
+                        population -= miningTemp;
                     }
                 }
             } 
@@ -208,6 +209,7 @@ public class VariableManager : MonoBehaviour {
 
             popCounter++;
             currentTime = 30f;
+            cycleRounds++;
         }
 
         if (popCounter == 2) {
@@ -244,6 +246,10 @@ public class VariableManager : MonoBehaviour {
         if (income <= 0) {
             income = 0;
         }
+
+        if (unemployed <= 0) {
+            unemployed = 0;
+        }
     }
 
     public void IncreaseHunting() {
@@ -254,21 +260,50 @@ public class VariableManager : MonoBehaviour {
     }
 
     public void IncreaseHunting5() {
-        if (unemployed > 4 && (huntingCap - hunting) > 4) {
+        /*if (unemployed > 4 && huntingCap - hunting > 4) {
             hunting = hunting + 5;
             unemployed = unemployed - 5;
-        } else if (unemployed > 3 && (huntingCap - hunting) == 4) {
+        } else if (unemployed > 3 && huntingCap - hunting == 4) {
             hunting = hunting + 4;
             unemployed = unemployed - 4;
-        } else if (unemployed > 2 && (huntingCap - hunting) == 3) {
+        } else if (unemployed > 2 && huntingCap - hunting == 3) {
             hunting = hunting + 3;
             unemployed = unemployed - 3;
-        } else if (unemployed > 1 && (huntingCap - hunting) == 2) {
+        } else if (unemployed > 1 && huntingCap - hunting == 2) {
             hunting = hunting + 2;
             unemployed = unemployed - 2;
-        } else if (unemployed > 0 && (huntingCap - hunting) == 1) {
+        } else if (unemployed > 0 && huntingCap - hunting == 1) {
             hunting = hunting + 1;
             unemployed = unemployed - 1;
+        } else if (unemployed == 1 && huntingCap - hunting > 0) {
+            hunting = hunting + 1;
+            unemployed = unemployed - 1;
+        } else if (unemployed == 2 && huntingCap - hunting > 1) {
+            hunting = hunting + 2;
+            unemployed = unemployed - 2;
+        } else if (unemployed == 3 && huntingCap - hunting > 2) {
+            hunting = hunting + 3;
+            unemployed = unemployed - 3;
+        } else if (unemployed == 4 && huntingCap - hunting > 3) {
+            hunting = hunting + 4;
+            unemployed = unemployed - 4;
+        }
+        IncreaseHunting();
+        IncreaseHunting();
+        IncreaseHunting();
+        IncreaseHunting();
+        IncreaseHunting();*/
+
+        if (unemployed > (huntingCap - hunting)) {
+            if ((unemployed - (unemployed - (huntingCap - hunting)) >= 5)) {
+                hunting += 5;
+            } else {
+                hunting += unemployed - (unemployed - (huntingCap - hunting));
+            }
+        } else if (unemployed < (huntingCap - hunting)) {
+            hunting += unemployed;
+        } else if (unemployed == (huntingCap - hunting)) {
+            hunting += unemployed;
         }
     }
 
@@ -308,7 +343,7 @@ public class VariableManager : MonoBehaviour {
     }
 
     public void IncreaseMining5() {
-        if (unemployed > 4 && (miningCap - mining) > 4) {
+        /*if (unemployed > 4 && (miningCap - mining) > 4) {
             mining = mining + 5;
             unemployed = unemployed - 5;
         } else if (unemployed > 3 && (miningCap - mining) == 4) {
@@ -323,7 +358,25 @@ public class VariableManager : MonoBehaviour {
         } else if (unemployed > 0 && (miningCap - mining) == 1) {
             mining = mining + 1;
             unemployed = unemployed - 1;
+        } else if (unemployed == 1 && (miningCap - mining) > 0) {
+            mining = mining + 1;
+            unemployed = unemployed - 1;
+        } else if (unemployed == 2 && (miningCap - mining) > 1) {
+            mining = mining + 2;
+            unemployed = unemployed - 2;
+        } else if (unemployed == 3 && (miningCap - mining) > 2) {
+            mining = mining + 3;
+            unemployed = unemployed - 3;
+        } else if (unemployed == 4 && (miningCap - mining) > 3) {
+            mining = mining + 4;
+            unemployed = unemployed - 4;
         }
+        IncreaseMining();
+        IncreaseMining();
+        IncreaseMining();
+        IncreaseMining();
+        IncreaseMining();*/
+        
     }
 
     public void DecreaseMining() {
@@ -362,7 +415,7 @@ public class VariableManager : MonoBehaviour {
     }
 
     public void IncreaseScouting5() {
-        if (unemployed > 4 && (scoutingCap - scouting) > 4) {
+        /*if (unemployed > 4 && (scoutingCap - scouting) > 4) {
             scouting = scouting + 5;
             unemployed = unemployed - 5;
         } else if (unemployed > 3 && (scoutingCap - scouting) == 4) {
@@ -377,7 +430,24 @@ public class VariableManager : MonoBehaviour {
         } else if (unemployed > 0 && (scoutingCap - scouting) == 1) {
             scouting = scouting + 1;
             unemployed = unemployed - 1;
-        }
+        } else if (unemployed == 1 && (scoutingCap - scouting) > 0) {
+            scouting = scouting + 1;
+            unemployed = unemployed - 1;
+        } else if (unemployed == 2 && (scoutingCap - scouting) > 1) {
+            scouting = scouting + 2;
+            unemployed = unemployed - 2;
+        } else if (unemployed == 3 && (scoutingCap - scouting) > 2) {
+            scouting = scouting + 3;
+            unemployed = unemployed - 3;
+        } else if (unemployed == 4 && (scoutingCap - scouting) > 3) {
+            scouting = scouting + 4;
+            unemployed = unemployed - 4;
+        }*/
+        IncreaseScouting();
+        IncreaseScouting();
+        IncreaseScouting();
+        IncreaseScouting();
+        IncreaseScouting();
     }
 
     public void DecreaseScouting() {
