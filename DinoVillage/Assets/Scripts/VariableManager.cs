@@ -21,14 +21,17 @@ public class VariableManager : MonoBehaviour {
     public int hunting;
     public int huntingCap;
     public Text huntingText;
+    public Text huntingCapText;
     public int mining;
     public int miningCap;
     public Text miningText;
+    public Text miningCapText;
     //public int performance;
     //public Text performanceText;
     public int scouting;
     public int scoutingCap;
     public Text scoutingText;
+    public Text scoutingCapText;
 
 
     //time shit
@@ -48,10 +51,9 @@ public class VariableManager : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         population = 10;
-        unemployed = population;
+        unemployed = 10;
         food = 10;
         income = 10;
-        unemployed = 0;
         huntingCap = 5;
         miningCap = 5;
         scoutingCap = 5;
@@ -70,7 +72,11 @@ public class VariableManager : MonoBehaviour {
         unemployedText.text = "Unemployed: " + unemployed.ToString("00");
         //happinessText.text = "Happiness: " + happiness.ToString("00");
         huntingText.text = hunting.ToString("00");
+        huntingCapText.text = huntingCap.ToString("00");
         miningText.text = mining.ToString("00");
+        miningCapText.text = miningCap.ToString("00");
+        scoutingText.text = scouting.ToString("00");
+        scoutingCapText.text = scoutingCap.ToString("00");
 
         foodRateD = (population * 0.09f + 8) / 10;
         foodRateI = (hunting * 1.9f);
@@ -104,33 +110,27 @@ public class VariableManager : MonoBehaviour {
     }
 
     public void IncreaseHunting() {
-        if (population > 0 && hunting < huntingCap) {
+        if (unemployed > 0 && hunting < huntingCap) {
             hunting++;
-            population--;
             unemployed--;
         }
     }
 
     public void IncreaseHunting5() {
-        if (population > 4 && (huntingCap - hunting) > 4) {
+        if (unemployed > 4 && (huntingCap - hunting) > 4) {
             hunting = hunting + 5;
-            population = population - 5;
             unemployed = unemployed - 5;
-        } else if (population > 3 && (huntingCap - hunting) == 4) {
+        } else if (unemployed > 3 && (huntingCap - hunting) == 4) {
             hunting = hunting + 4;
-            population = population - 4;
             unemployed = unemployed - 4;
-        } else if (population > 2 && (huntingCap - hunting) == 3) {
+        } else if (unemployed > 2 && (huntingCap - hunting) == 3) {
             hunting = hunting + 3;
-            population = population - 3;
             unemployed = unemployed - 3;
-        } else if (population > 1 && (huntingCap - hunting) == 2) {
+        } else if (unemployed > 1 && (huntingCap - hunting) == 2) {
             hunting = hunting + 2;
-            population = population - 2;
             unemployed = unemployed - 2;
-        } else if (population > 0 && (huntingCap - hunting) == 1) {
+        } else if (unemployed > 0 && (huntingCap - hunting) == 1) {
             hunting = hunting + 1;
-            population = population - 1;
             unemployed = unemployed - 1;
         }
     }
@@ -138,7 +138,6 @@ public class VariableManager : MonoBehaviour {
     public void DecreaseHunting() {
         if (hunting > 0) {
             hunting--;
-            population++;
             unemployed++;
         }
     }
@@ -147,56 +146,45 @@ public class VariableManager : MonoBehaviour {
         if (hunting > 0) {
             if (hunting > 4) {
                 hunting = hunting - 5;
-                population = population + 5;
                 unemployed = unemployed + 5;
             } else if (hunting == 4) {
                 hunting = hunting - 4;
-                population = population + 4;
                 unemployed = unemployed + 4;
             } else if (hunting == 3) {
                 hunting = hunting - 3;
-                population = population + 3;
                 unemployed = unemployed + 3;
             } else if (hunting == 2) {
                 hunting = hunting - 2;
-                population = population + 2;
                 unemployed = unemployed + 2;
             } else if (hunting == 1) {
                 hunting = hunting - 1;
-                population = population + 1;
                 unemployed = unemployed + 1;
             }
         }
     }
 
     public void IncreaseMining() {
-        if (population > 0 && mining < miningCap) {
+        if (unemployed > 0 && mining < miningCap) {
             mining++;
-            population--;
             unemployed--;
         }
     }
 
     public void IncreaseMining5() {
-        if (population > 4 && (miningCap - mining) > 4) {
+        if (unemployed > 4 && (miningCap - mining) > 4) {
             mining = mining + 5;
-            population = population - 5;
             unemployed = unemployed - 5;
-        } else if (population > 3 && (miningCap - mining) == 4) {
+        } else if (unemployed > 3 && (miningCap - mining) == 4) {
             mining = mining + 4;
-            population = population - 4;
             unemployed = unemployed - 4;
-        } else if (population > 2 && (miningCap - mining) == 3) {
+        } else if (unemployed > 2 && (miningCap - mining) == 3) {
             mining = mining + 3;
-            population = population - 3;
             unemployed = unemployed - 3;
-        } else if (population > 1 && (miningCap - mining) == 2) {
+        } else if (unemployed > 1 && (miningCap - mining) == 2) {
             mining = mining + 2;
-            population = population - 2;
             unemployed = unemployed - 2;
-        } else if (population > 0 && (miningCap - mining) == 1) {
+        } else if (unemployed > 0 && (miningCap - mining) == 1) {
             mining = mining + 1;
-            population = population - 1;
             unemployed = unemployed - 1;
         }
     }
@@ -204,7 +192,6 @@ public class VariableManager : MonoBehaviour {
     public void DecreaseMining() {
         if (mining > 0) {
             mining--;
-            population++;
             unemployed++;
         }
     }
@@ -213,56 +200,45 @@ public class VariableManager : MonoBehaviour {
         if (mining > 0) {
             if (mining > 4) {
                 mining = mining - 5;
-                population = population + 5;
                 unemployed = unemployed + 5;
             } else if (mining == 4) {
                 mining = mining - 4;
-                population = population + 4;
                 unemployed = unemployed + 4;
             } else if (mining == 3) {
                 mining = mining - 3;
-                population = population + 3;
                 unemployed = unemployed + 3;
             } else if (mining == 2) {
                 mining = mining - 2;
-                population = population + 2;
                 unemployed = unemployed + 2;
             } else if (mining == 1) {
                 mining = mining - 1;
-                population = population + 1;
                 unemployed = unemployed + 1;
             }
         }
     }
 
     public void IncreaseScouting() {
-        if (population > 0 && scouting < scoutingCap) {
+        if (unemployed > 0 && scouting < scoutingCap) {
             scouting++;
-            population--;
             unemployed--;
         }
     }
 
     public void IncreaseScouting5() {
-        if (population > 4 && (scoutingCap - scouting) > 4) {
+        if (unemployed > 4 && (scoutingCap - scouting) > 4) {
             scouting = scouting + 5;
-            population = population - 5;
             unemployed = unemployed - 5;
-        } else if (population > 3 && (scoutingCap - scouting) == 4) {
+        } else if (unemployed > 3 && (scoutingCap - scouting) == 4) {
             scouting = scouting + 4;
-            population = population - 4;
             unemployed = unemployed - 4;
-        } else if (population > 2 && (scoutingCap - scouting) == 3) {
+        } else if (unemployed > 2 && (scoutingCap - scouting) == 3) {
             scouting = scouting + 3;
-            population = population - 3;
             unemployed = unemployed - 3;
-        } else if (population > 1 && (scoutingCap - scouting) == 2) {
+        } else if (unemployed > 1 && (scoutingCap - scouting) == 2) {
             scouting = scouting + 2;
-            population = population - 2;
             unemployed = unemployed - 2;
-        } else if (population > 0 && (scoutingCap - scouting) == 1) {
+        } else if (unemployed > 0 && (scoutingCap - scouting) == 1) {
             scouting = scouting + 1;
-            population = population - 1;
             unemployed = unemployed - 1;
         }
     }
@@ -270,7 +246,6 @@ public class VariableManager : MonoBehaviour {
     public void DecreaseScouting() {
         if (scouting > 0) {
             scouting--;
-            population++;
             unemployed++;
         }
     }
@@ -279,23 +254,18 @@ public class VariableManager : MonoBehaviour {
         if (scouting > 0) {
             if (scouting > 4) {
                 scouting = scouting - 5;
-                population = population + 5;
                 unemployed = unemployed + 5;
             } else if (scouting == 4) {
                 scouting = scouting - 4;
-                population = population + 4;
                 unemployed = unemployed + 4;
             } else if (scouting == 3) {
                 scouting = scouting - 3;
-                population = population + 3;
                 unemployed = unemployed + 3;
             } else if (scouting == 2) {
                 scouting = scouting - 2;
-                population = population + 2;
                 unemployed = unemployed + 2;
             } else if (scouting == 1) {
                 scouting = scouting - 1;
-                population = population + 1;
                 unemployed = unemployed + 1;
             }
         }
