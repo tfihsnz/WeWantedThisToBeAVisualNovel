@@ -131,6 +131,28 @@ public class VariableManager : MonoBehaviour {
 
             if (i < 6) {
                 //job event
+                int k = Random.Range(1, 200);
+
+                if (k <= 100 && hunting > 0) {
+                    //hunting event
+                    if (k <= 20) {
+                        food = food + 20;
+                    } else if (k <= 25) {                        
+                        float huntingTemp;
+                        huntingTemp = hunting;
+                        hunting = 0;
+                        population = population - huntingTemp;
+                    }
+                } else if (k <= 200 && mining > 0) {
+                    if (k <= 120) {
+                        income = income + 20;
+                    } else if (k <= 125) {
+                        float miningTemp;
+                        miningTemp = mining;
+                        mining = 0;
+                        population = population - miningTemp;
+                    }
+                }
             } 
 
             cycleTime = 0;
@@ -141,7 +163,9 @@ public class VariableManager : MonoBehaviour {
             //event!! yay omg yes amazing hurrah.
             int j = Random.Range(1, 100);
 
+            if (j < 21) {
 
+            }
 
             //Time.timeScale = 0;
             popCounter++;
@@ -151,6 +175,11 @@ public class VariableManager : MonoBehaviour {
         if (popCounter == 2) {
             population++;
             unemployed++;
+
+            int a = Random.Range(1, 300);
+
+            if ()
+
             popCounter = 0;
         }
 
