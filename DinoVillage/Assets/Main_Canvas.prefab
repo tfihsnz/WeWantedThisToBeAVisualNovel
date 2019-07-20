@@ -821,10 +821,14 @@ MonoBehaviour:
   foodRateI: 0
   incomeRateD: 0
   incomeRateI: 0
+  populationRateI: 0
   upgHuntingCount: 0
   upgMiningCount: 0
   upgScoutingCount: 0
   upgCost: 0
+  upgHuntingText: {fileID: 9185226559739718048}
+  upgMiningText: {fileID: 3841655342800398472}
+  upgScoutingText: {fileID: 8660921248282663016}
   popCounter: 0
 --- !u!1 &1977489989287467065
 GameObject:

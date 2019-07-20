@@ -51,6 +51,10 @@ public class VariableManager : MonoBehaviour {
     public int upgMiningCount;
     public int upgScoutingCount;
     public int upgCost;
+    
+    public Text upgHuntingText;
+    public Text upgMiningText;
+    public Text upgScoutingText;
 
     public int popCounter = 0;
 
@@ -110,8 +114,12 @@ public class VariableManager : MonoBehaviour {
         foodRateD = (population * 0.09f + 8) / 10;
         foodRateI = (hunting * 0.25f);
         incomeRateD = (mining * 0.09f + 8) / 10;
-        incomeRateI = (mining * 0.25f);
+        incomeRateI = (mining * 2f);
         populationRateI = (scouting * 0.25f);
+
+        upgHuntingText.text = (30 * upgHuntingCount).ToString("00");
+        upgMiningText.text = (30 * upgMiningCount).ToString("00");
+        upgScoutingText.text = (30 * upgScoutingCount).ToString("00");
 
         if (cycleTime >= 3) {
             //update variables
