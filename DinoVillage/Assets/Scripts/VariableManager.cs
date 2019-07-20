@@ -113,10 +113,16 @@ public class VariableManager : MonoBehaviour {
         scoutingCapText.text = scoutingCap.ToString("00");
 
         foodRateD = Mathf.RoundToInt((population * 0.09f + 8) / 10) + 1;
-        foodRateI = Mathf.RoundToInt((hunting * 0.25f)) + 1;
+        if (hunting > 0) {
+            foodRateI = Mathf.RoundToInt((hunting * 0.25f)) + 2;
+        }        
         incomeRateD = Mathf.RoundToInt((mining * 0.09f + 8) / 10) + 1;
-        incomeRateI = Mathf.RoundToInt((mining * 2f)) + 1;
-        populationRateI = Mathf.RoundToInt((scouting * 0.25f)) + 1;
+        if (income > 0) {
+            incomeRateI = Mathf.RoundToInt((mining * 0.25f)) + 2;
+        }
+        if (scouting > 0) {
+            populationRateI = Mathf.RoundToInt((scouting * 0.25f)) + 1;
+        }        
 
         upgHuntingText.text = (30 * upgHuntingCount).ToString("00");
         upgMiningText.text = (30 * upgMiningCount).ToString("00");
@@ -124,13 +130,13 @@ public class VariableManager : MonoBehaviour {
 
         if (cycleTime >= 3) {
             //update variables
-            food = food + foodRateI;
-            food = food - foodRateD;
-            income = income + incomeRateI;
-            income = income - incomeRateD;
+            food += foodRateI;
+            food -= foodRateD;
+            income += incomeRateI;
+            income -= incomeRateD;
             //happiness = happiness + happinessRateI;
             //happiness = happiness - happinessRateD;
-            population = population + populationRateI;
+            population += populationRateI;
 
             if (food <= 0) {
                 population = population - 10;
@@ -300,10 +306,12 @@ public class VariableManager : MonoBehaviour {
             } else {
                 hunting += unemployed - (unemployed - (huntingCap - hunting));
             }
-        } else if (unemployed < (huntingCap - hunting)) {
-            hunting += unemployed;
-        } else if (unemployed == (huntingCap - hunting)) {
-            hunting += unemployed;
+        } else if (unemployed < (huntingCap - hunting) || unemployed == (huntingCap - hunting)) {
+            if ((unemployed - (unemployed - (huntingCap - hunting)) >= 5)) {
+                hunting += 5;
+            } else {
+                hunting += unemployed;
+            }                
         }
     }
 
@@ -376,7 +384,21 @@ public class VariableManager : MonoBehaviour {
         IncreaseMining();
         IncreaseMining();
         IncreaseMining();*/
-        
+
+        if (unemployed > (miningCap - mining)) {
+            if ((unemployed - (unemployed - (miningCap - mining)) >= 5)) {
+                mining += 5;
+            } else {
+                mining += unemployed - (unemployed - (miningCap - mining));
+            }
+        } else if (unemployed < (miningCap - mining) || unemployed == (miningCap - mining)) {
+            if ((unemployed - (unemployed - (miningCap - mining)) >= 5)) {
+                mining += 5;
+            } else {
+                mining += unemployed;
+            }
+        }
+
     }
 
     public void DecreaseMining() {
@@ -442,12 +464,26 @@ public class VariableManager : MonoBehaviour {
         } else if (unemployed == 4 && (scoutingCap - scouting) > 3) {
             scouting = scouting + 4;
             unemployed = unemployed - 4;
-        }*/
+        }
         IncreaseScouting();
         IncreaseScouting();
         IncreaseScouting();
         IncreaseScouting();
-        IncreaseScouting();
+        IncreaseScouting();*/
+
+        if (unemployed > (scoutingCap - scouting)) {
+            if ((unemployed - (unemployed - (scoutingCap - scouting)) >= 5)) {
+                scouting += 5;
+            } else {
+                scouting += unemployed - (unemployed - (scoutingCap - scouting));
+            }
+        } else if (unemployed < (scoutingCap - scouting) || unemployed == (scoutingCap - scouting)) {
+            if ((unemployed - (unemployed - (scoutingCap - scouting)) >= 5)) {
+                scouting += 5;
+            } else {
+                scouting += unemployed;
+            }
+        }
     }
 
     public void DecreaseScouting() {
