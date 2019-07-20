@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class VariableManager : MonoBehaviour {
 
     //main variables
-    public int population;
+    public float population;
     public Text populationText;
     public float unemployed;
     public Text unemployedText;
@@ -45,13 +45,23 @@ public class VariableManager : MonoBehaviour {
     public float incomeRateI;
     //public float happinessRateD;
     //public float happinessRateI;
+    public float populationRateI;
 
     public int upgHuntingCount;
     public int upgMiningCount;
     public int upgScoutingCount;
     public int upgCost;
+    
+    public Text upgHuntingText;
+    public Text upgMiningText;
+    public Text upgScoutingText;
 
     public int popCounter = 0;
+
+    private bool orbReceived;
+    private bool itemReceived;
+    private bool weaponsReceived;
+    private bool rottenFoodReceived;
 
     // Start is called before the first frame update
     void Start() {
@@ -74,6 +84,20 @@ public class VariableManager : MonoBehaviour {
         currentTime -= Time.deltaTime;
         cycleTime += Time.deltaTime;
 
+        if (population < (unemployed + hunting + mining + scouting)) {
+            if (unemployed > 0) {
+                unemployed--;
+            } else if (scouting > 0) {
+                scouting--;
+            } else if (hunting > 0) {
+                hunting--;
+            } else if (mining > 0) {
+                mining--;
+            }
+        }
+
+        unemployed = population - hunting - mining - scouting;
+
         //text updates
         populationText.text = "Population: " + population.ToString("00");
         foodText.text = "Food: " + food.ToString("00");
@@ -88,9 +112,14 @@ public class VariableManager : MonoBehaviour {
         scoutingCapText.text = scoutingCap.ToString("00");
 
         foodRateD = (population * 0.09f + 8) / 10;
-        foodRateI = (hunting * 1.9f);
+        foodRateI = (hunting * 0.25f);
         incomeRateD = (mining * 0.09f + 8) / 10;
-        incomeRateI = (mining * 1.9f);
+        incomeRateI = (mining * 2f);
+        populationRateI = (scouting * 0.25f);
+
+        upgHuntingText.text = (30 * upgHuntingCount).ToString("00");
+        upgMiningText.text = (30 * upgMiningCount).ToString("00");
+        upgScoutingText.text = (30 * upgScoutingCount).ToString("00");
 
         if (cycleTime >= 3) {
             //update variables
@@ -100,6 +129,45 @@ public class VariableManager : MonoBehaviour {
             income = income - incomeRateD;
             //happiness = happiness + happinessRateI;
             //happiness = happiness - happinessRateD;
+            population = population + populationRateI;
+
+            if (food <= 0) {
+                population = population - 10;
+            }
+
+            if (income <= 0) {
+                population = population - 5;
+                food = food - 5;
+            }
+
+            int i = Random.Range(1, 100);
+
+            if (i < 6) {
+                //job event
+                int k = Random.Range(1, 200);
+
+                if (k <= 100 && hunting > 0) {
+                    //hunting event
+                    if (k <= 20) {
+                        food = food + 20;
+                    } else if (k <= 25) {                        
+                        float huntingTemp;
+                        huntingTemp = hunting;
+                        hunting = 0;
+                        population = population - huntingTemp;
+                    }
+                } else if (k <= 200 && mining > 0) {
+                    //mining event
+                    if (k <= 120) {
+                        income = income + 20;
+                    } else if (k <= 125) {
+                        float miningTemp;
+                        miningTemp = mining;
+                        mining = 0;
+                        population = population - miningTemp;
+                    }
+                }
+            } 
 
             cycleTime = 0;
         }
@@ -108,6 +176,36 @@ public class VariableManager : MonoBehaviour {
         if (currentTime <= 0f) {
             //event!! yay omg yes amazing hurrah.
             //Time.timeScale = 0;
+            int b = Random.Range(1, 100);
+
+            if (orbReceived && rottenFoodReceived) {
+                if (b <= 20) {
+                    //zombie apocalypse
+                } else if (b <= 40) {
+                    //rotten food
+                } else if (b <= 60) {
+                    //merchant
+                } else if (b <= 80) {
+                    //invasion
+                } else if (b <= 99) {
+                    //coup d'etat
+                } else if (b == 100) {
+                    //meteorite
+                }
+            } else {
+                if (b <= 25) {
+                    //rotten food
+                } else if (b <= 50) {
+                    //merchant
+                } else if (b <= 75) {
+                    //invasion
+                } else if (b <= 99) {
+                    //coup d'etat
+                } else if (b == 100) {
+                    //meteorite
+                }
+            }
+
             popCounter++;
             currentTime = 30f;
         }
@@ -115,7 +213,36 @@ public class VariableManager : MonoBehaviour {
         if (popCounter == 2) {
             population++;
             unemployed++;
+
+            //scouting events
+            int a = Random.Range(1, 300);
+
+            if (a <= 15) {
+                //orb event
+                orbReceived = true;
+            } else if (a <= 30) {
+                //weapons event
+                weaponsReceived = true;
+            } else if (a < 45) {
+                //merchant item
+                itemReceived = true;
+            }
+
             popCounter = 0;
+        }
+
+        if (population <= 0) {
+            //Game Over;
+            population = 0;
+            Time.timeScale = 0;
+        }
+
+        if (food <= 0) {
+            food = 0;
+        }
+
+        if (income <= 0) {
+            income = 0;
         }
     }
 
@@ -306,3 +433,4 @@ public class VariableManager : MonoBehaviour {
     }
 
 }
+
