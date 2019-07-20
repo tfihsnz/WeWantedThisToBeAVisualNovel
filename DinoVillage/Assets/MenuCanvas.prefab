@@ -585,9 +585,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1941894960cd5224ca34ab2759e60a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 7130845992431452356}
   movie: {fileID: 15200000, guid: 4e4f33ea475d08540906118843603aa6, type: 3}
-  MainUiCan: {fileID: 0}
+  MenuCanvas: {fileID: 7130845992431452356}
+  MainUiCan: {fileID: 1977489989224434694, guid: d90bda2d0eb621d4fba71e36949a8d88,
+    type: 3}
 --- !u!1 &7130845992431452356
 GameObject:
   m_ObjectHideFlags: 0
