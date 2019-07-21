@@ -4,47 +4,65 @@ using UnityEngine;
 
 public class DinosWalk : MonoBehaviour
 {
-    Vector2 nextLoc;
+    Vector2 Loc1;
+    Vector2 Loc2;
+    Vector2 Loc3;
+    Vector2 Loc4;
+    Vector2 Loc5;
+    Vector2 Loc6;
+    Vector2 Loc7;
+    Vector2 Loc8;
     public int population;
     public GameObject prefab;
-
-
-    public class Locations
-    {
-        public int Xaxis;
-        public int Yaxis;
-
-        public Locations(int newXaxis, int newYaxis)
-        {
-            Xaxis = newXaxis;
-            Yaxis = newYaxis;
-        }
-    }
+    public float spawn;
 
     void Start()
     {
-        List<Locations> locations = new List<Locations>();
-
-        locations.Add(new Locations(8, 1));
-        locations.Add(new Locations(1, 2));
-        locations.Add(new Locations(1, -1));
-        locations.Add(new Locations(4, 0));
-        locations.Add(new Locations(-2, -2));
-        locations.Add(new Locations(-3, 1));
-        locations.Add(new Locations(-4, 3));
-        locations.Add(new Locations(-5, 0));
-
-        foreach(Locations guy in locations)
-        {
-            nextLoc.x = guy.Xaxis;
-            nextLoc.y = guy.Yaxis;
-        }
-
-        population = 10;
+        population = 10/2;
         for (int i = 0; i < population; i++)
         {
-            
-            Instantiate(prefab, nextLoc, Quaternion.identity);
+            Loc1.x = 8;
+            Loc1.y = 1;
+            Loc2.x = 1;
+            Loc2.y = 2;
+            Loc3.x = 1;
+            Loc3.y = -1;
+            Loc4.x = 4;
+            Loc4.y = 0;
+            Loc5.x = -2;
+            Loc5.y = -2;
+            Loc6.x = -3;
+            Loc6.y = 1;
+            Loc7.x = -4;
+            Loc7.y = 3;
+            Loc8.x = -5;
+            Loc8.y = 0;
+            spawn = Random.Range(0, 8);
+            if (spawn <= 1)
+            {
+                Instantiate(prefab, Loc1, Quaternion.identity);
+            }
+            else if (spawn <= 2){
+                Instantiate(prefab, Loc2, Quaternion.identity);
+            }
+            else if (spawn <= 3){
+                Instantiate(prefab, Loc3, Quaternion.identity);
+            }
+            else if (spawn <= 4){
+                Instantiate(prefab, Loc4, Quaternion.identity);
+            }
+            else if (spawn <= 5){
+                Instantiate(prefab, Loc5, Quaternion.identity);
+            }
+            else if (spawn <= 6){
+                Instantiate(prefab, Loc6, Quaternion.identity);
+            }
+            else if (spawn <= 7){
+                Instantiate(prefab, Loc7, Quaternion.identity);
+            }
+            else if (spawn <= 8){
+                Instantiate(prefab, Loc8, Quaternion.identity);
+            }
 
         }
     }
