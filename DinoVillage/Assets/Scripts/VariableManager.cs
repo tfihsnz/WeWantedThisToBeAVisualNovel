@@ -102,7 +102,7 @@ public class VariableManager : MonoBehaviour {
         }
     }
 
-    public List<MainEvents> mainEvents = new List<MainEvents>();
+    //public List<MainEvents> mainEvents = new List<MainEvents>();
 
     // Start is called before the first frame update
     void Start() {
@@ -120,12 +120,12 @@ public class VariableManager : MonoBehaviour {
         upgScoutingCount = 1;
         
         //mainEvents.Add(new MainEvents("Zombie"));
-        mainEvents.Add(new MainEvents("RottenFood"));
-        mainEvents.Add(new MainEvents("Merchant"));
-        mainEvents.Add(new MainEvents("Invasion"));
-        mainEvents.Add(new MainEvents("Coup"));
+        //mainEvents.Add(new MainEvents("RottenFood"));
+        //mainEvents.Add(new MainEvents("Merchant"));
+        //mainEvents.Add(new MainEvents("Invasion"));
+        //mainEvents.Add(new MainEvents("Coup"));
         //mainEvents.Add(new MainEvents("Skeleton"));
-        mainEvents.Add(new MainEvents("Mage"));
+        //mainEvents.Add(new MainEvents("Mage"));
         //mainEvents.Add(new MainEvents("Cult"));
         //mainEvents.Add(new MainEvents("God"));
     }
@@ -178,10 +178,10 @@ public class VariableManager : MonoBehaviour {
         upgMiningText.text = (30 * upgMiningCount).ToString("00");
         upgScoutingText.text = (30 * upgScoutingCount).ToString("00");
 
-        if (orbReceived && rottenFoodReceived) {
+        /*if (orbReceived && rottenFoodReceived) {
             mainEvents.Add(new MainEvents("Zombie"));
             orbReceived = false;
-        }
+        }*/
 
         if (cycleTime >= 3) {
             //update variables
@@ -216,13 +216,13 @@ public class VariableManager : MonoBehaviour {
                     if (k <= 20) {
                         huntingReward = true;
                         EventTextbox();
-                        food += 20;
-                    } else if (k <= 25) {
+                        food += Mathf.RoundToInt(25 + ((15/100)*food));
+                    } else if (k <= 40) {
                         huntingAccident = true;
                         EventTextbox();
                         int huntingTemp;
-                        huntingTemp = hunting;
-                        hunting = 0;
+                        huntingTemp = Mathf.RoundToInt(hunting/4);
+                        hunting -= huntingTemp;
                         population -= huntingTemp;
                     }
                 } else if (k <= 200 && mining > 0) {
@@ -230,13 +230,13 @@ public class VariableManager : MonoBehaviour {
                     if (k <= 120) {
                         miningReward = true;
                         EventTextbox();
-                        income += 20;
-                    } else if (k <= 125) {
+                        income += Mathf.RoundToInt(25 + ((15 / 100) * income));
+                    } else if (k <= 140) {
                         miningAccident = true;
                         EventTextbox();
                         int miningTemp;
-                        miningTemp = mining;
-                        mining = 0;
+                        miningTemp = Mathf.RoundToInt(mining / 4);
+                        mining -= miningTemp;
                         population -= miningTemp;
                     }
                 }
@@ -251,35 +251,127 @@ public class VariableManager : MonoBehaviour {
             //Time.timeScale = 0;
             int b = Random.Range(1, 100);
 
-            /*if (orbReceived && rottenFoodReceived) {
+            if (orbReceived && rottenFoodReceived) {
                 if (b <= 20) {
                     //zombie apocalypse
+                    zombieEvent = true;
+                    population -= Mathf.RoundToInt(population / 5);
                 } else if (b <= 40) {
                     //rotten food
+                    rottenFoodEvent = true;
+                    food -= Mathf.RoundToInt(food * 0.4f);
                 } else if (b <= 60) {
                     //merchant
+                    merchantEvent = true;
+                    if (itemReceived) {
+                        income += Random.Range(30, 50);
+                    } else {
+                        income += Random.Range(10, 30);
+                    }
                 } else if (b <= 80) {
                     //invasion
+                    invasionEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.4f);
                 } else if (b <= 99) {
                     //coup d'etat
+                    coupEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.35f);
+                    food -= Mathf.RoundToInt(food * 0.35f);
+                    income -= Mathf.RoundToInt(income * 0.35f);
                 } else if (b == 100) {
                     //meteorite
+                    meteorEvent = true;
+                }
+            } else if (mageAccepted && orbReceived && rottenFoodReceived) {
+                if (b <= 20) {
+                    //zombie apocalypse
+                    zombieEvent = true;
+                    population -= Mathf.RoundToInt(population / 5);
+                } else if (b <= 40) {
+                    //rotten food
+                    rottenFoodEvent = true;
+                    food -= Mathf.RoundToInt(food * 0.4f);
+                } else if (b <= 60) {
+                    //skeleton
+                    skeletonEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.4f);
+                } else if (b <= 80) {
+                    //cult
+                    cultEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.4f);
+                    food -= Mathf.RoundToInt(food * 0.3f);
+                } else if (b <= 99) {
+                    //god                    
+                    godEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.5f);
+                    food -= Mathf.RoundToInt(food * 0.5f);
+                    income -= Mathf.RoundToInt(income * 0.5f);
+                } else if (b == 100) {
+                    //meteorite
+                    meteorEvent = true;
+                }
+            } else if (mageAccepted) {
+                if (b <= 20) {
+                    //merchant
+                    merchantEvent = true;
+                    if (itemReceived) {
+                        income += Random.Range(30, 50);
+                    } else {
+                        income += Random.Range(10, 30);
+                    }
+                } else if (b <= 40) {
+                    //rotten food
+                    rottenFoodEvent = true;
+                    food -= Mathf.RoundToInt(food * 0.4f);
+                } else if (b <= 60) {
+                    //skeleton
+                    skeletonEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.4f);
+                } else if (b <= 80) {
+                    //cult
+                    cultEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.4f);
+                    food -= Mathf.RoundToInt(food * 0.3f);
+                } else if (b <= 99) {
+                    //god
+                    godEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.5f);
+                    food -= Mathf.RoundToInt(food * 0.5f);
+                    income -= Mathf.RoundToInt(income * 0.5f);
+                } else if (b == 100) {
+                    //meteorite
+                    meteorEvent = true;
                 }
             } else {
                 if (b <= 25) {
                     //rotten food
+                    rottenFoodEvent = true;
+                    food -= Mathf.RoundToInt(food * 0.4f);
                 } else if (b <= 50) {
                     //merchant
+                    merchantEvent = true;
+                    if (itemReceived) {
+                        income += Random.Range(30, 50);
+                    } else {
+                        income += Random.Range(10, 30);
+                    }
                 } else if (b <= 75) {
                     //invasion
+                    invasionEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.4f);
                 } else if (b <= 99) {
                     //coup d'etat
+                    coupEvent = true;
+                    population -= Mathf.RoundToInt(population * 0.35f);
+                    food -= Mathf.RoundToInt(food * 0.35f);
+                    income -= Mathf.RoundToInt(income * 0.35f);
                 } else if (b == 100) {
                     //meteorite
+                    meteorEvent = true;
                 }
-            }*/
+            }
 
-
+            EventTextbox();
 
             popCounter++;
             currentTime = 30f;
@@ -295,10 +387,16 @@ public class VariableManager : MonoBehaviour {
 
             if (a <= 10) {
                 //orb event
+                orbEvent = true;
+                EventTextbox();
             } else if (a <= 20) {
                 //weapons event
+                weaponsEvent = true;
+                EventTextbox();
             } else if (a < 30) {
                 //merchant item
+                itemEvent = true;
+                EventTextbox();
             }
 
             popCounter = 0;
