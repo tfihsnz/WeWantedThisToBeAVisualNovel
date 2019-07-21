@@ -59,10 +59,36 @@ public class VariableManager : MonoBehaviour {
 
     public int popCounter = 0;
 
+    //event bools
+    private bool orbEvent;
+    private bool weaponsEvent;
+    private bool itemEvent;
     private bool orbReceived;
     private bool itemReceived;
     private bool weaponsReceived;
     private bool rottenFoodReceived;
+    private bool huntingReward;
+    private bool huntingAccident;
+    private bool miningReward;
+    private bool miningAccident;
+    private bool zombieEvent;
+    private bool rottenFoodEvent;
+    private bool merchantEvent;
+    private bool invasionEvent;
+    private bool coupEvent;
+    private bool skeletonEvent;
+    private bool mageEvent;
+    private bool cultEvent;
+    private bool godEvent;
+    private bool meteorEvent;
+
+    //event texts
+    public Text titleChoice;
+    public Text titleMain;
+    public Text bodyChoice;
+    public Text bodyMain;
+    public Text leftChoice;
+    public Text rightChoice;
 
     // Start is called before the first frame update
     void Start() {
@@ -136,7 +162,10 @@ public class VariableManager : MonoBehaviour {
             income -= incomeRateD;
             //happiness = happiness + happinessRateI;
             //happiness = happiness - happinessRateD;
-            population += populationRateI;
+            int c = Random.Range(1, 10);
+            if (c < 2) {
+                population += populationRateI;
+            }            
 
             if (food <= 0) {
                 population = population - 10;
@@ -156,8 +185,12 @@ public class VariableManager : MonoBehaviour {
                 if (k <= 100 && hunting > 0) {
                     //hunting event
                     if (k <= 20) {
-                        food = food + 20;
-                    } else if (k <= 25) {                        
+                        huntingReward = true;
+                        EventButton();
+                        food += 20;
+                    } else if (k <= 25) {
+                        huntingAccident = true;
+                        EventButton();
                         int huntingTemp;
                         huntingTemp = hunting;
                         hunting = 0;
@@ -166,8 +199,12 @@ public class VariableManager : MonoBehaviour {
                 } else if (k <= 200 && mining > 0) {
                     //mining event
                     if (k <= 120) {
-                        income = income + 20;
+                        miningReward = true;
+                        EventButton();
+                        income += 20;
                     } else if (k <= 125) {
+                        miningAccident = true;
+                        EventButton();
                         int miningTemp;
                         miningTemp = mining;
                         mining = 0;
@@ -225,13 +262,13 @@ public class VariableManager : MonoBehaviour {
             //scouting events
             int a = Random.Range(1, 300);
 
-            if (a <= 15) {
+            if (a <= 10) {
                 //orb event
                 orbReceived = true;
-            } else if (a <= 30) {
+            } else if (a <= 20) {
                 //weapons event
                 weaponsReceived = true;
-            } else if (a < 45) {
+            } else if (a < 30) {
                 //merchant item
                 itemReceived = true;
             }
@@ -537,6 +574,57 @@ public class VariableManager : MonoBehaviour {
             scoutingCap = scoutingCap + 5;
         }
     }
+
+    public void EventButton() {
+        //ffs
+        if (huntingReward) {
+            titleMain.text = "Hunting Reward";
+            bodyMain.text = "The dinosaurs found a big herd of humies. Food increases!";
+        } else if (huntingAccident) {
+            titleMain.text = "Hunting Accident";
+            bodyMain.text = "The dinosaurs were ambushed by the humies. Population decreases!";
+        } else if (miningReward) {
+            titleMain.text = "Mining Reward";
+            bodyMain.text = "The dinosaurs found some rare ore. Income increases!";
+        } else if (miningAccident) {
+            titleMain.text = "Mining Accident";
+            bodyMain.text = "The mine has collapsed! The dinosaurs have perished. Population decreases!";
+        } else if (zombieEvent) {
+            titleMain.text = "Zombie Apocalypse";
+            bodyMain.text = "The orb is reacting with the rotten food causing the dinosaurs to zombify. Population, food, and income decreases!";
+        } else if (rottenFoodEvent) {
+
+        }
+    }
+
+    /*public Text titleChoice;
+    public Text titleMain;
+    public Text bodyChoice;
+    public Text bodyMain;
+    public Text leftChoice;
+    public Text rightChoice;
+    
+     private bool orbEvent;
+    private bool weaponsEvent;
+    private bool itemEvent;
+    private bool orbReceived;
+    private bool itemReceived;
+    private bool weaponsReceived;
+    private bool rottenFoodReceived;
+    private bool huntingReward;
+    private bool huntingAccident;
+    private bool miningReward;
+    private bool miningAccident;
+    private bool zombieEvent;
+    private bool rottenFoodEvent;
+    private bool merchantEvent;
+    private bool invasionEvent;
+    private bool coupEvent;
+    private bool skeletonEvent;
+    private bool mageEvent;
+    private bool cultEvent;
+    private bool godEvent;
+    private bool meteorEvent;*/
 
 }
 
