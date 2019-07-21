@@ -15,10 +15,11 @@ public class DinosWalk : MonoBehaviour
     public int population;
     public GameObject prefab;
     public float spawn;
+    public GameObject littleman;
 
     void Start()
     {
-        population = 10/2;
+        population = 10;
         for (int i = 0; i < population; i++)
         {
             Loc1.x = 8;
@@ -40,30 +41,36 @@ public class DinosWalk : MonoBehaviour
             spawn = Random.Range(0, 8);
             if (spawn <= 1)
             {
-                Instantiate(prefab, Loc1, Quaternion.identity);
+                littleman = Instantiate(prefab, Loc1, Quaternion.identity);
             }
             else if (spawn <= 2){
-                Instantiate(prefab, Loc2, Quaternion.identity);
+                littleman = Instantiate(prefab, Loc2, Quaternion.identity);
             }
             else if (spawn <= 3){
-                Instantiate(prefab, Loc3, Quaternion.identity);
+                littleman = Instantiate(prefab, Loc3, Quaternion.identity);
             }
             else if (spawn <= 4){
-                Instantiate(prefab, Loc4, Quaternion.identity);
+                littleman = Instantiate(prefab, Loc4, Quaternion.identity);
             }
             else if (spawn <= 5){
-                Instantiate(prefab, Loc5, Quaternion.identity);
+                littleman = Instantiate(prefab, Loc5, Quaternion.identity);
             }
             else if (spawn <= 6){
-                Instantiate(prefab, Loc6, Quaternion.identity);
+                littleman = Instantiate(prefab, Loc6, Quaternion.identity);
             }
             else if (spawn <= 7){
-                Instantiate(prefab, Loc7, Quaternion.identity);
+                littleman = Instantiate(prefab, Loc7, Quaternion.identity);
             }
             else if (spawn <= 8){
-                Instantiate(prefab, Loc8, Quaternion.identity);
+                littleman = Instantiate(prefab, Loc8, Quaternion.identity);
             }
 
         }
+        Destroy(littleman);
+        Destroy(littleman);
+        Destroy(littleman);
+        Destroy(littleman);
+        Destroy(littleman);
+        Destroy(littleman);
     }
 }
