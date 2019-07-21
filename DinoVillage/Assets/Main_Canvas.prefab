@@ -703,7 +703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977489989224434690
 RectTransform:
   m_ObjectHideFlags: 0
@@ -817,6 +817,7 @@ MonoBehaviour:
   scoutingText: {fileID: 1977489990726495532}
   scoutingCapText: {fileID: 1977489990976795818}
   cycleTime: 0
+  cycleRounds: 0
   foodRateD: 0
   foodRateI: 0
   incomeRateD: 0
@@ -830,6 +831,14 @@ MonoBehaviour:
   upgMiningText: {fileID: 3841655342800398472}
   upgScoutingText: {fileID: 8660921248282663016}
   popCounter: 0
+  titleChoice: {fileID: 0}
+  titleMain: {fileID: 0}
+  bodyChoice: {fileID: 0}
+  bodyMain: {fileID: 0}
+  leftChoice: {fileID: 0}
+  rightChoice: {fileID: 0}
+  choiceCanvas: {fileID: 0}
+  eventCanvas: {fileID: 0}
 --- !u!1 &1977489989287467065
 GameObject:
   m_ObjectHideFlags: 0
