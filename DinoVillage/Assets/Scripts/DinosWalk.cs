@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class DinosWalk : MonoBehaviour
 {
-    public GameObject Dino;
-    Vector2 Nextpos;
-    public float NextPos;
+    Vector2 nextLoc;
+    public int population;
+    public GameObject prefab;
+
 
     public class Locations
     {
@@ -19,7 +20,7 @@ public class DinosWalk : MonoBehaviour
             Yaxis = newYaxis;
         }
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         List<Locations> locations = new List<Locations>();
@@ -33,18 +34,18 @@ public class DinosWalk : MonoBehaviour
         locations.Add(new Locations(-4, 3));
         locations.Add(new Locations(-5, 0));
 
-
         foreach(Locations guy in locations)
         {
-            //public vector2Int loc = (guy.Xaxis, guy.Yaxis) ;
-            //Dino.transform.Translate(loc);
+            nextLoc.x = guy.Xaxis;
+            nextLoc.y = guy.Yaxis;
         }
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        population = 10;
+        for (int i = 0; i < population; i++)
+        {
+            
+            Instantiate(prefab, nextLoc, Quaternion.identity);
+
+        }
     }
 }
