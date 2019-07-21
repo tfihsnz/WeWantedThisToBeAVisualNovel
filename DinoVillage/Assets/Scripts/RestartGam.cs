@@ -7,16 +7,18 @@ using System.Collections;
 
 public class RestartGam : MonoBehaviour
 {
-    public MovieTexture movie;
     public GameObject EndCanvas;
     public AudioSource ClickSound;
+    public Image YouDied;
+    public Text TextYD;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<RawImage>().texture = movie;
-        movie.Play();
-        //movie.loop = true;
+        YouDied.GetComponent<CanvasRenderer>().SetAlpha(0.1f);
+        TextYD.GetComponent<CanvasRenderer>().SetAlpha(0.1f);
+        YouDied.CrossFadeAlpha(1f, 2f, false);
+        TextYD.CrossFadeAlpha(1f, 1.5f, false);
     }
 
     public void RestartGame()
