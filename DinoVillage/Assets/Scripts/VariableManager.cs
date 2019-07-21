@@ -82,6 +82,9 @@ public class VariableManager : MonoBehaviour {
     private bool godEvent;
     private bool meteorEvent;
     private bool mageAccepted;
+    private bool orbOff;
+    private bool weaponsOff;
+    private bool itemOff;
 
     //event texts
     public Text titleChoice;
@@ -257,9 +260,8 @@ public class VariableManager : MonoBehaviour {
                     zombieEvent = true;
                     population -= Mathf.RoundToInt(population / 5);
                 } else if (b <= 40) {
-                    //rotten food
-                    rottenFoodEvent = true;
-                    food -= Mathf.RoundToInt(food * 0.4f);
+                    //mage
+                    mageEvent = true;
                 } else if (b <= 60) {
                     //merchant
                     merchantEvent = true;
@@ -356,9 +358,8 @@ public class VariableManager : MonoBehaviour {
                         income += Random.Range(10, 30);
                     }
                 } else if (b <= 75) {
-                    //invasion
-                    invasionEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.4f);
+                    //mage
+                    mageEvent = true;
                 } else if (b <= 99) {
                     //coup d'etat
                     coupEvent = true;
@@ -376,6 +377,7 @@ public class VariableManager : MonoBehaviour {
             popCounter++;
             currentTime = 30f;
             cycleRounds++;
+            Time.timeScale = 0;
         }
 
         if (popCounter == 2) {
@@ -387,16 +389,27 @@ public class VariableManager : MonoBehaviour {
 
             if (a <= 10) {
                 //orb event
-                orbEvent = true;
-                EventTextbox();
+                if (orbOff) {
+                    orbEvent = true;
+                    EventTextbox();
+                    orbOff = true;
+                    Time.timeScale = 0;
+                }                
             } else if (a <= 20) {
                 //weapons event
-                weaponsEvent = true;
-                EventTextbox();
+                if (weaponsOff) {
+                    weaponsEvent = true;
+                    EventTextbox();
+                    weaponsOff = true;
+                    Time.timeScale = 0;
+                }
             } else if (a < 30) {
                 //merchant item
-                itemEvent = true;
-                EventTextbox();
+                if (itemOff) {
+                    itemEvent = true;
+                    EventTextbox();
+                    itemOff = true;
+                }
             }
 
             popCounter = 0;
@@ -706,27 +719,27 @@ public class VariableManager : MonoBehaviour {
         if (huntingReward) {
             eventCanvas.SetActive(true);
             titleMain.text = "Hunting Reward";
-            bodyMain.text = "The dinosaurs found a big herd of humies. Food increases!";
+            bodyMain.text = "The dinos found a big herd of humies. Food increases!";
             huntingReward = false;
         } else if (huntingAccident) {
             eventCanvas.SetActive(true);
             titleMain.text = "Hunting Accident";
-            bodyMain.text = "The dinosaurs were ambushed by the humies. Population decreases!";
+            bodyMain.text = "The dinos were ambushed by the humies. Dino lives were lost!";
             huntingAccident = false;
         } else if (miningReward) {
             eventCanvas.SetActive(true);
             titleMain.text = "Mining Reward";
-            bodyMain.text = "The dinosaurs found some rare ore. Income increases!";
+            bodyMain.text = "The dinos found some rare ore. Income increases!";
             miningReward = false;
         } else if (miningAccident) {
             eventCanvas.SetActive(true);
             titleMain.text = "Mining Accident";
-            bodyMain.text = "The mine has collapsed! The dinosaurs have perished. Population decreases!";
+            bodyMain.text = "The mine has collapsed! Some of the dinos have perished. Dino lives were lost!";
             miningAccident = false;
         } else if (zombieEvent) {
             eventCanvas.SetActive(true);
             titleMain.text = "Zombie Apocalypse";
-            bodyMain.text = "The orb is reacting with the rotten food causing the dinosaurs to zombify. Resources decreases!";
+            bodyMain.text = "The orb is reacting with the rotten food causing the dinos to zombify. Resources decrease!";
             zombieEvent = false;
         } else if (rottenFoodEvent) {
             eventCanvas.SetActive(true);
@@ -741,7 +754,7 @@ public class VariableManager : MonoBehaviour {
         } else if (meteorEvent) {
             eventCanvas.SetActive(true);
             titleMain.text = "Doomsday Meteorite";
-            bodyMain.text = "A meteorite has fallen and has destroyed your entire village. Population wiped out!";
+            bodyMain.text = "A meteorite has fallen and has destroyed your entire village. Dinos wiped out!";
             meteorEvent = false;
         } else if (invasionEvent) {
             choiceCanvas.SetActive(true);
@@ -752,7 +765,7 @@ public class VariableManager : MonoBehaviour {
         } else if (coupEvent) {
             eventCanvas.SetActive(true);
             titleMain.text = "Coup d'etat";
-            bodyMain.text = "Some dinosaurs have banded together and started a coup d'etat. Resources decreases!";
+            bodyMain.text = "Some dinos have banded together and started a coup d'etat. Resources decrease!";
             coupEvent = false;
         } else if (mageEvent) {
             choiceCanvas.SetActive(true);
@@ -763,17 +776,17 @@ public class VariableManager : MonoBehaviour {
         } else if (skeletonEvent) {
             eventCanvas.SetActive(true);
             titleMain.text = "Skeleton Uprising";
-            bodyMain.text = "The made has accidently summoned skeletons. Population decreases!";
+            bodyMain.text = "The mage has accidently summoned skeletons. Population decreases!";
             skeletonEvent = false;
         } else if (cultEvent) {
             eventCanvas.SetActive(true);
             titleMain.text = "Yellow Dinosaur Cult";
-            bodyMain.text = "The yellow dinosaurs feel sympathy for the humies, and have decided to free some of them. Food decreases!";
+            bodyMain.text = "The yellow dinos feel sympathy for the humies, and have decided to free some of them. Food decreases!";
             cultEvent = false;
         } else if (godEvent) {
             eventCanvas.SetActive(true);
             titleMain.text = "Literal God Smite";
-            bodyMain.text = "The god smites the village. Resources decreases!";
+            bodyMain.text = "A god smites the village. Resources decrease!";
             godEvent = false;
         } else if (orbEvent) {
             choiceCanvas.SetActive(true);
@@ -784,7 +797,7 @@ public class VariableManager : MonoBehaviour {
         } else if (weaponsEvent) {
             choiceCanvas.SetActive(true);
             titleChoice.text = "Weapons";
-            bodyChoice.text = "Your scouts have found some weapons. Would you like to keep it?";
+            bodyChoice.text = "Your scouts have found some weapons. Would you like to keep them?";
             leftChoice.text = "No";
             rightChoice.text = "Yes";            
         } else if (itemEvent) {
@@ -796,7 +809,6 @@ public class VariableManager : MonoBehaviour {
 
     public void LeftOption() {
         if (invasionEvent) {
-            food -= Mathf.RoundToInt(food / 2) + 2;
             invasionEvent = false;
         } else if (mageEvent) {
             mageEvent = false;
@@ -810,11 +822,11 @@ public class VariableManager : MonoBehaviour {
 
         eventCanvas.SetActive(false);
         choiceCanvas.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void RightOption() {
         if (invasionEvent) {
-            income -= Mathf.RoundToInt(income / 2) + 2;
             invasionEvent = false;
         } else if (mageEvent) {
             mageAccepted = true;
@@ -832,6 +844,7 @@ public class VariableManager : MonoBehaviour {
 
         eventCanvas.SetActive(false);
         choiceCanvas.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void CloseOption() {
