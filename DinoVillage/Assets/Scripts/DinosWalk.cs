@@ -67,10 +67,5 @@ public class DinosWalk : MonoBehaviour
 
         }
         Destroy(littleman);
-        Destroy(littleman);
-        Destroy(littleman);
-        Destroy(littleman);
-        Destroy(littleman);
-        Destroy(littleman);
     }
 }

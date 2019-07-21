@@ -94,4 +94,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   population: 0
-  prefab: {fileID: 723598600053743355}
+  prefab: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1, type: 3}
+  spawn: 0
+  littleman: {fileID: 0}
