@@ -81,6 +81,7 @@ public class VariableManager : MonoBehaviour {
     private bool cultEvent;
     private bool godEvent;
     private bool meteorEvent;
+    private bool mageAccepted;
 
     //event texts
     public Text titleChoice;
@@ -89,6 +90,19 @@ public class VariableManager : MonoBehaviour {
     public Text bodyMain;
     public Text leftChoice;
     public Text rightChoice;
+
+    public GameObject choiceCanvas;
+    public GameObject eventCanvas;
+
+    public class MainEvents {
+        public string eventName;
+
+        public MainEvents(string newEventName) {
+            eventName = newEventName;
+        }
+    }
+
+    public List<MainEvents> mainEvents = new List<MainEvents>();
 
     // Start is called before the first frame update
     void Start() {
@@ -104,6 +118,16 @@ public class VariableManager : MonoBehaviour {
         upgHuntingCount = 1;
         upgMiningCount = 1;
         upgScoutingCount = 1;
+        
+        //mainEvents.Add(new MainEvents("Zombie"));
+        mainEvents.Add(new MainEvents("RottenFood"));
+        mainEvents.Add(new MainEvents("Merchant"));
+        mainEvents.Add(new MainEvents("Invasion"));
+        mainEvents.Add(new MainEvents("Coup"));
+        //mainEvents.Add(new MainEvents("Skeleton"));
+        mainEvents.Add(new MainEvents("Mage"));
+        //mainEvents.Add(new MainEvents("Cult"));
+        //mainEvents.Add(new MainEvents("God"));
     }
 
     // Update is called once per frame
@@ -154,6 +178,11 @@ public class VariableManager : MonoBehaviour {
         upgMiningText.text = (30 * upgMiningCount).ToString("00");
         upgScoutingText.text = (30 * upgScoutingCount).ToString("00");
 
+        if (orbReceived && rottenFoodReceived) {
+            mainEvents.Add(new MainEvents("Zombie"));
+            orbReceived = false;
+        }
+
         if (cycleTime >= 3) {
             //update variables
             food += foodRateI;
@@ -186,11 +215,11 @@ public class VariableManager : MonoBehaviour {
                     //hunting event
                     if (k <= 20) {
                         huntingReward = true;
-                        EventButton();
+                        EventTextbox();
                         food += 20;
                     } else if (k <= 25) {
                         huntingAccident = true;
-                        EventButton();
+                        EventTextbox();
                         int huntingTemp;
                         huntingTemp = hunting;
                         hunting = 0;
@@ -200,11 +229,11 @@ public class VariableManager : MonoBehaviour {
                     //mining event
                     if (k <= 120) {
                         miningReward = true;
-                        EventButton();
+                        EventTextbox();
                         income += 20;
                     } else if (k <= 125) {
                         miningAccident = true;
-                        EventButton();
+                        EventTextbox();
                         int miningTemp;
                         miningTemp = mining;
                         mining = 0;
@@ -222,7 +251,7 @@ public class VariableManager : MonoBehaviour {
             //Time.timeScale = 0;
             int b = Random.Range(1, 100);
 
-            if (orbReceived && rottenFoodReceived) {
+            /*if (orbReceived && rottenFoodReceived) {
                 if (b <= 20) {
                     //zombie apocalypse
                 } else if (b <= 40) {
@@ -248,7 +277,9 @@ public class VariableManager : MonoBehaviour {
                 } else if (b == 100) {
                     //meteorite
                 }
-            }
+            }*/
+
+
 
             popCounter++;
             currentTime = 30f;
@@ -264,13 +295,10 @@ public class VariableManager : MonoBehaviour {
 
             if (a <= 10) {
                 //orb event
-                orbReceived = true;
             } else if (a <= 20) {
                 //weapons event
-                weaponsReceived = true;
             } else if (a < 30) {
                 //merchant item
-                itemReceived = true;
             }
 
             popCounter = 0;
@@ -575,56 +603,144 @@ public class VariableManager : MonoBehaviour {
         }
     }
 
-    public void EventButton() {
+    public void EventTextbox() {
         //ffs
         if (huntingReward) {
+            eventCanvas.SetActive(true);
             titleMain.text = "Hunting Reward";
             bodyMain.text = "The dinosaurs found a big herd of humies. Food increases!";
+            huntingReward = false;
         } else if (huntingAccident) {
+            eventCanvas.SetActive(true);
             titleMain.text = "Hunting Accident";
             bodyMain.text = "The dinosaurs were ambushed by the humies. Population decreases!";
+            huntingAccident = false;
         } else if (miningReward) {
+            eventCanvas.SetActive(true);
             titleMain.text = "Mining Reward";
             bodyMain.text = "The dinosaurs found some rare ore. Income increases!";
+            miningReward = false;
         } else if (miningAccident) {
+            eventCanvas.SetActive(true);
             titleMain.text = "Mining Accident";
             bodyMain.text = "The mine has collapsed! The dinosaurs have perished. Population decreases!";
+            miningAccident = false;
         } else if (zombieEvent) {
+            eventCanvas.SetActive(true);
             titleMain.text = "Zombie Apocalypse";
-            bodyMain.text = "The orb is reacting with the rotten food causing the dinosaurs to zombify. Population, food, and income decreases!";
+            bodyMain.text = "The orb is reacting with the rotten food causing the dinosaurs to zombify. Resources decreases!";
+            zombieEvent = false;
         } else if (rottenFoodEvent) {
-
+            eventCanvas.SetActive(true);
+            titleMain.text = "Rotten Food";
+            bodyMain.text = "Some of your food supply has turned rotten. Food decreases!";
+            rottenFoodEvent = false;
+        } else if (merchantEvent) {
+            eventCanvas.SetActive(true);
+            titleMain.text = "Merchant Visit";
+            bodyMain.text = "A merchant has come to visit. Income increases!";
+            merchantEvent = false;
+        } else if (meteorEvent) {
+            eventCanvas.SetActive(true);
+            titleMain.text = "Doomsday Meteorite";
+            bodyMain.text = "A meteorite has fallen and has destroyed your entire village. Population wiped out!";
+            meteorEvent = false;
+        } else if (invasionEvent) {
+            choiceCanvas.SetActive(true);
+            titleChoice.text = "Invasion";
+            bodyChoice.text = "The humies have invaded. What resource are you going to protect?";
+            leftChoice.text = "Income";
+            rightChoice.text = "Food";
+        } else if (coupEvent) {
+            eventCanvas.SetActive(true);
+            titleMain.text = "Coup d'etat";
+            bodyMain.text = "Some dinosaurs have banded together and started a coup d'etat. Resources decreases!";
+            coupEvent = false;
+        } else if (mageEvent) {
+            choiceCanvas.SetActive(true);
+            titleChoice.text = "Mage Visit";
+            bodyChoice.text = "A mage has come to visit the village. Are you willing to let them stay?";
+            leftChoice.text = "No";
+            rightChoice.text = "Yes";
+        } else if (skeletonEvent) {
+            eventCanvas.SetActive(true);
+            titleMain.text = "Skeleton Uprising";
+            bodyMain.text = "The made has accidently summoned skeletons. Population decreases!";
+            skeletonEvent = false;
+        } else if (cultEvent) {
+            eventCanvas.SetActive(true);
+            titleMain.text = "Yellow Dinosaur Cult";
+            bodyMain.text = "The yellow dinosaurs feel sympathy for the humies, and have decided to free some of them. Food decreases!";
+            cultEvent = false;
+        } else if (godEvent) {
+            eventCanvas.SetActive(true);
+            titleMain.text = "Literal God Smite";
+            bodyMain.text = "The god smites the village. Resources decreases!";
+            godEvent = false;
+        } else if (orbEvent) {
+            choiceCanvas.SetActive(true);
+            titleChoice.text = "Orb";
+            bodyChoice.text = "Your scouts have found a magical orb. Would you like to keep it?";
+            leftChoice.text = "No";
+            rightChoice.text = "Yes";            
+        } else if (weaponsEvent) {
+            choiceCanvas.SetActive(true);
+            titleChoice.text = "Weapons";
+            bodyChoice.text = "Your scouts have found some weapons. Would you like to keep it?";
+            leftChoice.text = "No";
+            rightChoice.text = "Yes";            
+        } else if (itemEvent) {
+            eventCanvas.SetActive(true);
+            titleMain.text = "Mysterious Item";
+            bodyMain.text = "Your scouts have brought back a mysterious item.";            
         }
     }
 
-    /*public Text titleChoice;
-    public Text titleMain;
-    public Text bodyChoice;
-    public Text bodyMain;
-    public Text leftChoice;
-    public Text rightChoice;
-    
-     private bool orbEvent;
-    private bool weaponsEvent;
-    private bool itemEvent;
-    private bool orbReceived;
-    private bool itemReceived;
-    private bool weaponsReceived;
-    private bool rottenFoodReceived;
-    private bool huntingReward;
-    private bool huntingAccident;
-    private bool miningReward;
-    private bool miningAccident;
-    private bool zombieEvent;
-    private bool rottenFoodEvent;
-    private bool merchantEvent;
-    private bool invasionEvent;
-    private bool coupEvent;
-    private bool skeletonEvent;
-    private bool mageEvent;
-    private bool cultEvent;
-    private bool godEvent;
-    private bool meteorEvent;*/
+    public void LeftOption() {
+        if (invasionEvent) {
+            food -= Mathf.RoundToInt(food / 2) + 2;
+            invasionEvent = false;
+        } else if (mageEvent) {
+            mageEvent = false;
+        } else if (orbEvent) {
+            orbEvent = false;
+        } else if (weaponsEvent) {
+            weaponsEvent = false;
+        } else if (itemEvent) {
+            itemEvent = false;
+        }
+
+        eventCanvas.SetActive(false);
+        choiceCanvas.SetActive(false);
+    }
+
+    public void RightOption() {
+        if (invasionEvent) {
+            income -= Mathf.RoundToInt(income / 2) + 2;
+            invasionEvent = false;
+        } else if (mageEvent) {
+            mageAccepted = true;
+            mageEvent = false;
+        } else if (orbEvent) {
+            orbReceived = true;
+            orbEvent = false;
+        } else if (weaponsEvent) {
+            weaponsReceived = true;
+            weaponsEvent = false;
+        } else if (itemEvent) {
+            itemReceived = true;
+            itemEvent = false;
+        }
+
+        eventCanvas.SetActive(false);
+        choiceCanvas.SetActive(false);
+    }
+
+    public void CloseOption() {
+        eventCanvas.SetActive(false);
+        choiceCanvas.SetActive(false);
+        Time.timeScale = 1;
+    }
 
 }
 
