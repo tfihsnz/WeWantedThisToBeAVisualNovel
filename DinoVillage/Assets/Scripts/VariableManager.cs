@@ -96,6 +96,10 @@ public class VariableManager : MonoBehaviour {
 
     public GameObject choiceCanvas;
     public GameObject eventCanvas;
+    public GameObject loseCanvas;
+
+    public Text daysLasted;
+    public GameObject clickSound;
 
     public class MainEvents {
         public string eventName;
@@ -417,7 +421,9 @@ public class VariableManager : MonoBehaviour {
         if (population <= 0) {
             //Game Over;
             population = 0;
-            Time.timeScale = 0;
+            loseCanvas.SetActive(true);
+            daysLasted.text = "Days Lasted: " + cycleRounds.ToString("00");
+            StartCoroutine(TimeDelay(3));
         }
 
         if (food <= 0) {
@@ -438,6 +444,7 @@ public class VariableManager : MonoBehaviour {
             hunting++;
             unemployed--;
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void IncreaseHunting5() {
@@ -488,6 +495,7 @@ public class VariableManager : MonoBehaviour {
                 hunting += unemployed;
             }                
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void DecreaseHunting() {
@@ -495,6 +503,7 @@ public class VariableManager : MonoBehaviour {
             hunting--;
             unemployed++;
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void DecreaseHunting5() {
@@ -516,6 +525,7 @@ public class VariableManager : MonoBehaviour {
                 unemployed = unemployed + 1;
             }
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void IncreaseMining() {
@@ -523,6 +533,7 @@ public class VariableManager : MonoBehaviour {
             mining++;
             unemployed--;
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void IncreaseMining5() {
@@ -573,6 +584,7 @@ public class VariableManager : MonoBehaviour {
                 mining += unemployed;
             }
         }
+        clickSound.GetComponent<AudioSource>().Play();
 
     }
 
@@ -581,6 +593,7 @@ public class VariableManager : MonoBehaviour {
             mining--;
             unemployed++;
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void DecreaseMining5() {
@@ -602,6 +615,7 @@ public class VariableManager : MonoBehaviour {
                 unemployed = unemployed + 1;
             }
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void IncreaseScouting() {
@@ -609,6 +623,7 @@ public class VariableManager : MonoBehaviour {
             scouting++;
             unemployed--;
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void IncreaseScouting5() {
@@ -659,6 +674,7 @@ public class VariableManager : MonoBehaviour {
                 scouting += unemployed;
             }
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void DecreaseScouting() {
@@ -666,6 +682,7 @@ public class VariableManager : MonoBehaviour {
             scouting--;
             unemployed++;
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void DecreaseScouting5() {
@@ -687,6 +704,7 @@ public class VariableManager : MonoBehaviour {
                 unemployed = unemployed + 1;
             }
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void UpgradeHunting() {
@@ -703,6 +721,7 @@ public class VariableManager : MonoBehaviour {
             upgMiningCount++;
             miningCap = miningCap + 5;
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void UpgradeScouting() {
@@ -711,6 +730,7 @@ public class VariableManager : MonoBehaviour {
             upgScoutingCount++;
             scoutingCap = scoutingCap + 5;
         }
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void EventTextbox() {
@@ -755,7 +775,6 @@ public class VariableManager : MonoBehaviour {
             eventCanvas.SetActive(true);
             titleMain.text = "Doomsday Meteorite";
             bodyMain.text = "A meteorite has fallen and has destroyed your entire village. Dinos wiped out!";
-            meteorEvent = false;
         } else if (invasionEvent) {
             choiceCanvas.SetActive(true);
             titleChoice.text = "Invasion";
@@ -823,6 +842,7 @@ public class VariableManager : MonoBehaviour {
         eventCanvas.SetActive(false);
         choiceCanvas.SetActive(false);
         Time.timeScale = 1;
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void RightOption() {
@@ -846,12 +866,25 @@ public class VariableManager : MonoBehaviour {
         eventCanvas.SetActive(false);
         choiceCanvas.SetActive(false);
         Time.timeScale = 1;
+        clickSound.GetComponent<AudioSource>().Play();
     }
 
     public void CloseOption() {
-        eventCanvas.SetActive(false);
-        choiceCanvas.SetActive(false);
-        Time.timeScale = 1;
+        if (meteorEvent) {
+            loseCanvas.SetActive(true);
+            daysLasted.text = "Days Lasted: " + cycleRounds.ToString("00");
+            StartCoroutine(TimeDelay(3));
+        } else {
+            eventCanvas.SetActive(false);
+            choiceCanvas.SetActive(false);
+            Time.timeScale = 1;
+        }
+        clickSound.GetComponent<AudioSource>().Play();
+    }
+
+    IEnumerator TimeDelay(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        Time.timeScale = 0;
     }
 
 }
