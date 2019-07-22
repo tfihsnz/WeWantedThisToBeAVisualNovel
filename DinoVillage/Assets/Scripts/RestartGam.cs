@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class RestartGam : MonoBehaviour
 {
@@ -27,6 +26,7 @@ public class RestartGam : MonoBehaviour
         ClickSound.Play(1);
         EndCanvas.SetActive(false);
         Application.LoadLevel(Application.loadedLevel);
+        //SceneManager.LoadScene("MainScene");
     }
 
 }
