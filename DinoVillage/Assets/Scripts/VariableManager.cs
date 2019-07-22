@@ -393,7 +393,6 @@ public class VariableManager : MonoBehaviour {
             popCounter++;
             currentTime = 30f;
             cycleRounds++;
-            Time.timeScale = 0;
         }
 
         if (popCounter >= 2) {
@@ -408,7 +407,6 @@ public class VariableManager : MonoBehaviour {
                       orbEvent = true;
                       EventTextbox();
                       orbOff = true;
-                      Time.timeScale = 0;
                   }
               } else if (a <= 60) {
                   //weapons event
@@ -416,7 +414,6 @@ public class VariableManager : MonoBehaviour {
                       weaponsEvent = true;
                       EventTextbox();
                       weaponsOff = true;
-                      Time.timeScale = 0;
                   }
               } else if (a < 90) {
                   //merchant item
@@ -838,6 +835,7 @@ public class VariableManager : MonoBehaviour {
             titleMain.text = "Mysterious Item";
             bodyMain.text = "Your scouts have brought back a mysterious item.";
         }
+        Time.timeScale = 0;
     }
 
     public void LeftOption() {
