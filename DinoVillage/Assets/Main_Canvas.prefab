@@ -703,7 +703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977489989224434690
 RectTransform:
   m_ObjectHideFlags: 0
@@ -839,6 +839,9 @@ MonoBehaviour:
   rightChoice: {fileID: 0}
   choiceCanvas: {fileID: 0}
   eventCanvas: {fileID: 0}
+  loseCanvas: {fileID: 0}
+  daysLasted: {fileID: 0}
+  clickSound: {fileID: 0}
 --- !u!1 &1977489989287467065
 GameObject:
   m_ObjectHideFlags: 0

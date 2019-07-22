@@ -103,6 +103,7 @@ public class VariableManager : MonoBehaviour {
     public GameObject clickSound;
 
     private bool gameOver;
+    private bool mainEventCanvas;
 
     /*public class MainEvents {
         public string eventName;
@@ -194,74 +195,6 @@ public class VariableManager : MonoBehaviour {
             mainEvents.Add(new MainEvents("Zombie"));
             orbReceived = false;
         }*/
-
-        if (cycleTime >= 3) {
-            //update variables
-            if (hunting != 0) {
-                food += foodRateI;
-            }
-            if (mining != 0) {
-                income += incomeRateI;
-            }
-
-            food -= foodRateD;
-            income -= incomeRateD;
-            //happiness = happiness + happinessRateI;
-            //happiness = happiness - happinessRateD;
-            int c = Random.Range(1, 10);
-            if (c < 3 && scouting != 0) {
-                population += populationRateI;
-            }
-
-            if (food <= 0) {
-                population -= ((population / 7) + 1);
-            }
-
-            if (income <= 0) {
-                population = population - 5;
-                food = food - 5;
-            }
-
-            int i = Random.Range(1, 100);
-
-            if (i < 6) {
-                //job event
-                int k = Random.Range(1, 200);
-
-                if (k <= 100 && hunting > 0) {
-                    //hunting event
-                    if (k <= 20) {
-                        huntingReward = true;
-                        EventTextbox();
-                        food += Mathf.RoundToInt(25 + ((15/100) * food));
-                    } else if (k <= 40) {
-                        huntingAccident = true;
-                        EventTextbox();
-                        int huntingTemp;
-                        huntingTemp = Mathf.RoundToInt(hunting/4) + 1;
-                        hunting -= huntingTemp;
-                        population -= huntingTemp;
-                    }
-                } else if (k <= 200 && mining > 0) {
-                    //mining event
-                    if (k <= 120) {
-                        miningReward = true;
-                        EventTextbox();
-                        income += Mathf.RoundToInt(25 + ((15 / 100) * income));
-                    } else if (k <= 140) {
-                        miningAccident = true;
-                        EventTextbox();
-                        int miningTemp;
-                        miningTemp = Mathf.RoundToInt(mining / 4) + 1;
-                        mining -= miningTemp;
-                        population -= miningTemp;
-                    }
-                }
-            }
-
-            cycleTime = 0;
-        }
-
 
         if (currentTime <= 0f) {
             //event!! yay omg yes amazing hurrah.
@@ -389,40 +322,112 @@ public class VariableManager : MonoBehaviour {
             }
 
             EventTextbox();
+            mainEventCanvas = true;
 
             popCounter++;
             currentTime = 30f;
             cycleRounds++;
         }
 
+        if (cycleTime >= 3) {
+            //update variables
+            if (hunting != 0) {
+                food += foodRateI;
+            }
+            if (mining != 0) {
+                income += incomeRateI;
+            }
+
+            food -= foodRateD;
+            income -= incomeRateD;
+            //happiness = happiness + happinessRateI;
+            //happiness = happiness - happinessRateD;
+            int c = Random.Range(1, 10);
+            if (c < 3 && scouting != 0) {
+                population += populationRateI;
+            }
+
+            if (food <= 0) {
+                population -= ((population / 7) + 1);
+            }
+
+            if (income <= 0) {
+                population = population - 5;
+                food = food - 5;
+            }
+
+            int i = Random.Range(1, 100);
+
+            if (mainEventCanvas == false) {
+              if (i < 6) {
+                  //job event
+                  int k = Random.Range(1, 200);
+
+                  if (k <= 100 && hunting > 0) {
+                      //hunting event
+                      if (k <= 20) {
+                          huntingReward = true;
+                          EventTextbox();
+                          food += Mathf.RoundToInt(25 + ((15/100) * food));
+                      } else if (k <= 40) {
+                          huntingAccident = true;
+                          EventTextbox();
+                          int huntingTemp;
+                          huntingTemp = Mathf.RoundToInt(hunting/4) + 1;
+                          hunting -= huntingTemp;
+                          population -= huntingTemp;
+                      }
+                  } else if (k <= 200 && mining > 0) {
+                      //mining event
+                      if (k <= 120) {
+                          miningReward = true;
+                          EventTextbox();
+                          income += Mathf.RoundToInt(25 + ((15 / 100) * income));
+                      } else if (k <= 140) {
+                          miningAccident = true;
+                          EventTextbox();
+                          int miningTemp;
+                          miningTemp = Mathf.RoundToInt(mining / 4) + 1;
+                          mining -= miningTemp;
+                          population -= miningTemp;
+                      }
+                  }
+              }
+            }
+
+            cycleTime = 0;
+        }
+
         if (popCounter >= 2) {
 
             //scouting events
-            if (scouting != 0) {
-              int a = Random.Range(1, 300);
+            if (mainEventCanvas == false) {
+                if (scouting != 0) {
+                    int a = Random.Range(1, 300);
 
-              if (a <= 60) {
-                  //orb event
-                  if (orbOff == false) {
-                      orbEvent = true;
-                      EventTextbox();
-                      orbOff = true;
-                  }
-              } else if (a <= 90) {
-                  //weapons event
-                  if (weaponsOff == false) {
-                      weaponsEvent = true;
-                      EventTextbox();
-                      weaponsOff = true;
-                  }
-              } else if (a < 120) {
-                  //merchant item
-                  if (itemOff == false) {
-                      itemEvent = true;
-                      EventTextbox();
-                      itemOff = true;
-                  }
-              }
+                    if (a <= 60) {
+                        //orb event
+                        if (orbOff == false) {
+                            orbEvent = true;
+                            EventTextbox();
+                            orbOff = true;
+                        }
+                    } else if (a <= 90) {
+                        //weapons event
+                        if (weaponsOff == false) {
+                            weaponsEvent = true;
+                            EventTextbox();
+                            weaponsOff = true;
+                        }
+                    } else if (a < 120) {
+                        //merchant item
+                        if (itemOff == false) {
+                            itemEvent = true;
+                            EventTextbox();
+                            itemOff = true;
+                        }
+                    }
+                }
             }
 
             popCounter = 0;
@@ -855,6 +860,7 @@ public class VariableManager : MonoBehaviour {
         choiceCanvas.SetActive(false);
         Time.timeScale = 1;
         clickSound.GetComponent<AudioSource>().Play();
+        mainEventCanvas = false;
     }
 
     public void RightOption() {
@@ -879,6 +885,7 @@ public class VariableManager : MonoBehaviour {
         choiceCanvas.SetActive(false);
         Time.timeScale = 1;
         clickSound.GetComponent<AudioSource>().Play();
+        mainEventCanvas = false;
     }
 
     public void CloseOption() {
@@ -892,6 +899,7 @@ public class VariableManager : MonoBehaviour {
             Time.timeScale = 1;
         }
         clickSound.GetComponent<AudioSource>().Play();
+        mainEventCanvas = false;
     }
 
     IEnumerator TimeDelay(float waitTime) {
