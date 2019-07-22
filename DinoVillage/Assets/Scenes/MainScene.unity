@@ -555,13 +555,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 845425290, guid: 8b7486b4ef0b8b44baa80fc7fb64f567, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000005722
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 845425290, guid: 8b7486b4ef0b8b44baa80fc7fb64f567, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7130845991969672846, guid: 8b7486b4ef0b8b44baa80fc7fb64f567,
         type: 3}
       propertyPath: MainUiCan
       value: 
       objectReference: {fileID: 1499956009}
+    - target: {fileID: 845425291, guid: 8b7486b4ef0b8b44baa80fc7fb64f567, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b7486b4ef0b8b44baa80fc7fb64f567, type: 3}
 --- !u!1 &638606330
@@ -1054,6 +1062,11 @@ PrefabInstance:
     - target: {fileID: 723598600053743357, guid: 7f3836455982ac24187e7d2eada31966,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 723598600053743356, guid: 7f3836455982ac24187e7d2eada31966,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

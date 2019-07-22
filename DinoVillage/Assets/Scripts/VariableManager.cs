@@ -52,7 +52,7 @@ public class VariableManager : MonoBehaviour {
     public int upgMiningCount;
     public int upgScoutingCount;
     public int upgCost;
-    
+
     public Text upgHuntingText;
     public Text upgMiningText;
     public Text upgScoutingText;
@@ -101,6 +101,8 @@ public class VariableManager : MonoBehaviour {
     public Text daysLasted;
     public GameObject clickSound;
 
+    private bool gameOver;
+
     public class MainEvents {
         public string eventName;
 
@@ -125,7 +127,7 @@ public class VariableManager : MonoBehaviour {
         upgHuntingCount = 1;
         upgMiningCount = 1;
         upgScoutingCount = 1;
-        
+
         //mainEvents.Add(new MainEvents("Zombie"));
         //mainEvents.Add(new MainEvents("RottenFood"));
         //mainEvents.Add(new MainEvents("Merchant"));
@@ -156,6 +158,10 @@ public class VariableManager : MonoBehaviour {
 
         unemployed = population - hunting - mining - scouting;
 
+        if (gameOver) {
+          Time.timeScale = 1;
+        }
+
         //text updates
         populationText.text = "Population: " + population.ToString("00");
         foodText.text = "Food: " + food.ToString("00");
@@ -173,7 +179,7 @@ public class VariableManager : MonoBehaviour {
         foodRateI = Mathf.RoundToInt((hunting * 0.25f)) + 2;
         incomeRateD = Mathf.RoundToInt((mining * 0.09f + 8) / 10);
         incomeRateI = Mathf.RoundToInt((mining * 0.25f)) + 2;
-        populationRateI = Mathf.RoundToInt((scouting * 0.25f));   
+        populationRateI = Mathf.RoundToInt((scouting * 0.25f));
 
         upgHuntingText.text = (30 * upgHuntingCount).ToString("00");
         upgMiningText.text = (30 * upgMiningCount).ToString("00");
@@ -192,15 +198,15 @@ public class VariableManager : MonoBehaviour {
             if (mining != 0) {
                 income += incomeRateI;
             }
-            
-            food -= foodRateD;            
+
+            food -= foodRateD;
             income -= incomeRateD;
             //happiness = happiness + happinessRateI;
             //happiness = happiness - happinessRateD;
             int c = Random.Range(1, 10);
             if (c < 2 && scouting != 0) {
                 population += populationRateI;
-            }            
+            }
 
             if (food <= 0) {
                 population -= ((population / 7) + 1);
@@ -222,7 +228,7 @@ public class VariableManager : MonoBehaviour {
                     if (k <= 20) {
                         huntingReward = true;
                         EventTextbox();
-                        food += Mathf.RoundToInt(25 + ((15/100)*food));
+                        food += Mathf.RoundToInt(25 + ((15/100) * food));
                     } else if (k <= 40) {
                         huntingAccident = true;
                         EventTextbox();
@@ -246,7 +252,7 @@ public class VariableManager : MonoBehaviour {
                         population -= miningTemp;
                     }
                 }
-            } 
+            }
 
             cycleTime = 0;
         }
@@ -263,7 +269,7 @@ public class VariableManager : MonoBehaviour {
                 if (b <= 20) {
                     //zombie apocalypse
                     zombieEvent = true;
-                    population -= Mathf.RoundToInt(population / 5) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population / 5) + (cycleRounds/2);
                 } else if (b <= 40) {
                     //mage
                     mageEvent = true;
@@ -278,13 +284,13 @@ public class VariableManager : MonoBehaviour {
                 } else if (b <= 80) {
                     //invasion
                     invasionEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds/2);
                 } else if (b <= 99) {
                     //coup d'etat
                     coupEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.35f) + (cycleRounds + 1);
-                    food -= Mathf.RoundToInt(food * 0.35f) + (cycleRounds + 1);
-                    income -= Mathf.RoundToInt(income * 0.35f) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population * 0.35f) + (cycleRounds/2);
+                    food -= Mathf.RoundToInt(food * 0.35f) + (cycleRounds/2);
+                    income -= Mathf.RoundToInt(income * 0.35f) + (cycleRounds/2);
                 } else if (b == 100) {
                     //meteorite
                     meteorEvent = true;
@@ -293,26 +299,26 @@ public class VariableManager : MonoBehaviour {
                 if (b <= 20) {
                     //zombie apocalypse
                     zombieEvent = true;
-                    population -= Mathf.RoundToInt(population / 5) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population / 5) + (cycleRounds/2);
                 } else if (b <= 40) {
                     //rotten food
                     rottenFoodEvent = true;
-                    food -= Mathf.RoundToInt(food * 0.4f) + (cycleRounds + 1);
+                    food -= Mathf.RoundToInt(food * 0.4f) + (cycleRounds/2);
                 } else if (b <= 65) {
                     //skeleton
                     skeletonEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds/2);
                 } else if (b <= 90) {
                     //cult
                     cultEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds + 1);
-                    food -= Mathf.RoundToInt(food * 0.3f) + (cycleRounds * 2);
+                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds/2);
+                    food -= Mathf.RoundToInt(food * 0.3f) + (cycleRounds/2);
                 } else if (b <= 99) {
-                    //god                    
+                    //god
                     godEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.5f) + (cycleRounds + 1);
-                    food -= Mathf.RoundToInt(food * 0.5f) + (cycleRounds + 1);
-                    income -= Mathf.RoundToInt(income * 0.5f) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population * 0.5f) + (cycleRounds/2);
+                    food -= Mathf.RoundToInt(food * 0.5f) + (cycleRounds/2);
+                    income -= Mathf.RoundToInt(income * 0.5f) + (cycleRounds/2);
                 } else if (b == 100) {
                     //meteorite
                     meteorEvent = true;
@@ -322,29 +328,29 @@ public class VariableManager : MonoBehaviour {
                     //merchant
                     merchantEvent = true;
                     if (itemReceived) {
-                        income += Random.Range(30, 50) + (cycleRounds + 1);
+                        income += Random.Range(30, 50) + (cycleRounds/2);
                     } else {
-                        income += Random.Range(10, 30) + (cycleRounds + 1);
+                        income += Random.Range(10, 30) + (cycleRounds/2);
                     }
                 } else if (b <= 40) {
                     //rotten food
                     rottenFoodEvent = true;
-                    food -= Mathf.RoundToInt(food * 0.4f) + (cycleRounds + 1);
+                    food -= Mathf.RoundToInt(food * 0.4f) + (cycleRounds/2);
                 } else if (b <= 65) {
                     //skeleton
                     skeletonEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds/2);
                 } else if (b <= 90) {
                     //cult
                     cultEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds + 1);
-                    food -= Mathf.RoundToInt(food * 0.3f) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population * 0.4f) + (cycleRounds/2);
+                    food -= Mathf.RoundToInt(food * 0.3f) + (cycleRounds/2);
                 } else if (b <= 99) {
                     //god
                     godEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.5f) + (cycleRounds + 1);
-                    food -= Mathf.RoundToInt(food * 0.5f) + (cycleRounds + 1);
-                    income -= Mathf.RoundToInt(income * 0.5f) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population * 0.5f) + (cycleRounds/2);
+                    food -= Mathf.RoundToInt(food * 0.5f) + (cycleRounds/2);
+                    income -= Mathf.RoundToInt(income * 0.5f) + (cycleRounds/2);
                 } else if (b == 100) {
                     //meteorite
                     meteorEvent = true;
@@ -353,7 +359,7 @@ public class VariableManager : MonoBehaviour {
                 if (b <= 25) {
                     //rotten food
                     rottenFoodEvent = true;
-                    food -= Mathf.RoundToInt(food * 0.4f) + (cycleRounds + 1);
+                    food -= Mathf.RoundToInt(food * 0.4f) + (cycleRounds/2);
                 } else if (b <= 50) {
                     //merchant
                     merchantEvent = true;
@@ -368,9 +374,9 @@ public class VariableManager : MonoBehaviour {
                 } else if (b <= 99) {
                     //coup d'etat
                     coupEvent = true;
-                    population -= Mathf.RoundToInt(population * 0.35f) + (cycleRounds + 1);
-                    food -= Mathf.RoundToInt(food * 0.35f) + (cycleRounds + 1);
-                    income -= Mathf.RoundToInt(income * 0.35f) + (cycleRounds + 1);
+                    population -= Mathf.RoundToInt(population * 0.35f) + (cycleRounds/2);
+                    food -= Mathf.RoundToInt(food * 0.35f) + (cycleRounds/2);
+                    income -= Mathf.RoundToInt(income * 0.35f) + (cycleRounds/2);
                 } else if (b == 100) {
                     //meteorite
                     meteorEvent = true;
@@ -385,34 +391,36 @@ public class VariableManager : MonoBehaviour {
             Time.timeScale = 0;
         }
 
-        if (popCounter == 2) {            
+        if (popCounter >= 2) {
 
             //scouting events
-            int a = Random.Range(1, 300);
+            if (scouting != 0) {
+              int a = Random.Range(1, 300);
 
-            if (a <= 15) {
-                //orb event
-                if (orbOff) {
-                    orbEvent = true;
-                    EventTextbox();
-                    orbOff = true;
-                    Time.timeScale = 0;
-                }                
-            } else if (a <= 30) {
-                //weapons event
-                if (weaponsOff) {
-                    weaponsEvent = true;
-                    EventTextbox();
-                    weaponsOff = true;
-                    Time.timeScale = 0;
-                }
-            } else if (a < 45) {
-                //merchant item
-                if (itemOff) {
-                    itemEvent = true;
-                    EventTextbox();
-                    itemOff = true;
-                }
+              if (a <= 30) {
+                  //orb event
+                  if (orbOff == false) {
+                      orbEvent = true;
+                      EventTextbox();
+                      orbOff = true;
+                      Time.timeScale = 0;
+                  }
+              } else if (a <= 60) {
+                  //weapons event
+                  if (weaponsOff == false) {
+                      weaponsEvent = true;
+                      EventTextbox();
+                      weaponsOff = true;
+                      Time.timeScale = 0;
+                  }
+              } else if (a < 90) {
+                  //merchant item
+                  if (itemOff == false) {
+                      itemEvent = true;
+                      EventTextbox();
+                      itemOff = true;
+                  }
+              }
             }
 
             popCounter = 0;
@@ -424,6 +432,7 @@ public class VariableManager : MonoBehaviour {
             loseCanvas.SetActive(true);
             daysLasted.text = "Days Lasted: " + cycleRounds.ToString("00");
             StartCoroutine(TimeDelay(3));
+            gameOver = true;
         }
 
         if (food <= 0) {
@@ -493,7 +502,7 @@ public class VariableManager : MonoBehaviour {
                 hunting += 5;
             } else {
                 hunting += unemployed;
-            }                
+            }
         }
         clickSound.GetComponent<AudioSource>().Play();
     }
@@ -812,17 +821,17 @@ public class VariableManager : MonoBehaviour {
             titleChoice.text = "Orb";
             bodyChoice.text = "Your scouts have found a magical orb. Would you like to keep it?";
             leftChoice.text = "No";
-            rightChoice.text = "Yes";            
+            rightChoice.text = "Yes";
         } else if (weaponsEvent) {
             choiceCanvas.SetActive(true);
             titleChoice.text = "Weapons";
             bodyChoice.text = "Your scouts have found some weapons. Would you like to keep them?";
             leftChoice.text = "No";
-            rightChoice.text = "Yes";            
+            rightChoice.text = "Yes";
         } else if (itemEvent) {
             eventCanvas.SetActive(true);
             titleMain.text = "Mysterious Item";
-            bodyMain.text = "Your scouts have brought back a mysterious item.";            
+            bodyMain.text = "Your scouts have brought back a mysterious item.";
         }
     }
 
@@ -884,8 +893,8 @@ public class VariableManager : MonoBehaviour {
 
     IEnumerator TimeDelay(float waitTime) {
         yield return new WaitForSeconds(waitTime);
+        gameOver = false;
         Time.timeScale = 0;
     }
 
 }
-
