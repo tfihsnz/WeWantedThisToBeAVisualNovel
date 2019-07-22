@@ -419,6 +419,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7130845992431452356, guid: 8b7486b4ef0b8b44baa80fc7fb64f567,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7130845992431452360, guid: 8b7486b4ef0b8b44baa80fc7fb64f567,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1089,6 +1094,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainEventCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8962778475757621006, guid: 2d8578bf61456824db04623ffbfd17e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8962778475757620994, guid: 2d8578bf61456824db04623ffbfd17e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1613,6 +1623,20 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RestartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 410827456, guid: 13af75e79d4193542a1065af8e6ec902, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 388
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690708311675676435, guid: 13af75e79d4193542a1065af8e6ec902,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -306
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690708311837767788, guid: 13af75e79d4193542a1065af8e6ec902,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -406
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13af75e79d4193542a1065af8e6ec902, type: 3}
