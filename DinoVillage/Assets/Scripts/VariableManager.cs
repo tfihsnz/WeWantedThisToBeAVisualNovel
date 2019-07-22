@@ -37,7 +37,7 @@ public class VariableManager : MonoBehaviour {
 
     //time shit
     public float cycleTime = 0f;
-    private float currentTime = 30f;
+    private float currentTime = 31f;
     public int cycleRounds = 0;
 
     //rate of increase and decrease
@@ -401,21 +401,21 @@ public class VariableManager : MonoBehaviour {
             if (scouting != 0) {
               int a = Random.Range(1, 300);
 
-              if (a <= 30) {
+              if (a <= 60) {
                   //orb event
                   if (orbOff == false) {
                       orbEvent = true;
                       EventTextbox();
                       orbOff = true;
                   }
-              } else if (a <= 60) {
+              } else if (a <= 90) {
                   //weapons event
                   if (weaponsOff == false) {
                       weaponsEvent = true;
                       EventTextbox();
                       weaponsOff = true;
                   }
-              } else if (a < 90) {
+              } else if (a < 120) {
                   //merchant item
                   if (itemOff == false) {
                       itemEvent = true;
