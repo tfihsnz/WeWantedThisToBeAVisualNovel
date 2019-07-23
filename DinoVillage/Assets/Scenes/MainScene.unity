@@ -1397,11 +1397,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObject: {fileID: 1499956009}
   population: 0
-  variableManager: {fileID: 0}
+  variableManager: {fileID: 1499956010}
   SpawnPrefab: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
     type: 3}
+  dinoInstance: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
+    type: 3}
+  dinoPrefab: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
+    type: 3}
   SpawnClone: []
-  position: {x: 0, y: 0, z: 0}
+  position: {x: 0, y: 0}
 --- !u!1001 &1921888011
 PrefabInstance:
   m_ObjectHideFlags: 0
