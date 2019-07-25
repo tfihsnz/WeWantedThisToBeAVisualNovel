@@ -11,7 +11,7 @@ public class DinoSpawnDespawn : MonoBehaviour {
 
     //sprite creation
     public GameObject SpawnPrefab;
-    GameObject dinoInstance;
+    private GameObject dinoInstance;
     public GameObject dinoPrefab;
 
     public List<GameObject> SpawnClone = new List<GameObject>();
@@ -21,7 +21,7 @@ public class DinoSpawnDespawn : MonoBehaviour {
 
     void Awake()
     {
-        dinoInstance = Instantiate(dinoPrefab, position, Quaternion.identity);
+        //dinoInstance = Instantiate(dinoPrefab, position, Quaternion.identity);
     }
 
     // Start is called before the first frame update
@@ -39,20 +39,25 @@ public class DinoSpawnDespawn : MonoBehaviour {
 
         if (population > SpawnClone.Count)
         {
+            Debug.Log("ADD");
             for (int i = 1; population > SpawnClone.Count; i++)
-            {
-                SpawnClone.Add(dinoPrefab);
-                Instantiate(dinoInstance);
+            {  
+                dinoInstance = Instantiate(dinoPrefab);
                 dinoInstance.name = SpawnPrefab.name + i;
+                SpawnClone.Add(dinoInstance);
+                
             }
         }
 
-        if (population < SpawnClone.Count)
+        if (population <= SpawnClone.Count)
         {
             Debug.Log("fuck");
+            GameObject.Destroy(SpawnClone[SpawnClone.Count - 1]);
+            //SpawnClone.Remove(SpawnClone[SpawnClone.Count]);
+            
             SpawnClone.Clear();
             //SpawnClone.TrimExcess();
-            GameObject.Destroy(dinoInstance);
+            
         }
     }
 }
