@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 723598600053743357}
   - component: {fileID: 723598600053743356}
   - component: {fileID: 723598600053743358}
+  - component: {fileID: 1840265161}
   m_Layer: 0
   m_Name: dinocontroll
   m_TagString: Untagged
@@ -88,7 +89,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723598600053743355}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eec574f9c28567648bb8aa0bbbd499cb, type: 3}
   m_Name: 
@@ -97,3 +98,24 @@ MonoBehaviour:
   prefab: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1, type: 3}
   spawn: 0
   littleman: {fileID: 0}
+--- !u!114 &1840265161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723598600053743355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 609e150c7fa7d4945848e56b9f8c7588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 0}
+  population: 0
+  variableManager: {fileID: 0}
+  SpawnPrefab: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
+    type: 3}
+  dinoPrefab: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
+    type: 3}
+  SpawnClone: []
+  position: {x: 0, y: 0, z: 0}
