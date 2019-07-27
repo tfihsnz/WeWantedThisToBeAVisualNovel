@@ -28,7 +28,7 @@ public class DinoSpawnDespawn : MonoBehaviour {
     void Start()
     {
         variableManager = gameObject.GetComponent<VariableManager>();
-        position = new Vector3(0.0f, 0.0f, 0.0f);
+        position = new Vector3(Random.Range(-5.7f, 5.0f), Random.Range(-0.2f, 2.0f), 0.0f);
         GameObject dinoPrefab = Resources.Load("iddleman") as GameObject;
     }
 
@@ -42,22 +42,20 @@ public class DinoSpawnDespawn : MonoBehaviour {
             Debug.Log("ADD");
             for (int i = 1; population > SpawnClone.Count; i++)
             {  
-                dinoInstance = Instantiate(dinoPrefab);
+                dinoInstance = Instantiate(dinoPrefab, new Vector3(Random.Range(-5.7f, 5.0f), Random.Range(-0.2f, 2.0f), 0.0f), Quaternion.identity);
                 dinoInstance.name = SpawnPrefab.name + i;
                 SpawnClone.Add(dinoInstance);
-                
+                //dinoInstance.transform.Translate(Random.Range(-5.7f, 5.0f), Random.Range(-0.2f, 2.0f), 0.0f);
             }
         }
 
-        if (population <= SpawnClone.Count)
+        if (population < SpawnClone.Count)
         {
             Debug.Log("fuck");
             GameObject.Destroy(SpawnClone[SpawnClone.Count - 1]);
             //SpawnClone.Remove(SpawnClone[SpawnClone.Count]);
-            
-            SpawnClone.Clear();
-            //SpawnClone.TrimExcess();
-            
+            SpawnClone.RemoveAt(SpawnClone.Count - 1);
+            SpawnClone.TrimExcess();
         }
     }
 }
