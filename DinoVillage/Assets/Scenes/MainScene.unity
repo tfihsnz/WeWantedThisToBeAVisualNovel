@@ -944,12 +944,12 @@ PrefabInstance:
     - target: {fileID: 723598600053743357, guid: 7f3836455982ac24187e7d2eada31966,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.62
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 723598600053743357, guid: 7f3836455982ac24187e7d2eada31966,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.27
+      value: 1.04
       objectReference: {fileID: 0}
     - target: {fileID: 723598600053743357, guid: 7f3836455982ac24187e7d2eada31966,
         type: 3}
@@ -1400,12 +1400,10 @@ MonoBehaviour:
   variableManager: {fileID: 1499956010}
   SpawnPrefab: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
     type: 3}
-  dinoInstance: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
-    type: 3}
   dinoPrefab: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
     type: 3}
   SpawnClone: []
-  position: {x: 0, y: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!1001 &1921888011
 PrefabInstance:
   m_ObjectHideFlags: 0
