@@ -516,8 +516,7 @@ PrefabInstance:
         type: 3}
       propertyPath: movie
       value: 
-      objectReference: {fileID: 15200000, guid: 341cfa9afc8180845997381ee6c0e0d5,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 1788702023, guid: 8b7486b4ef0b8b44baa80fc7fb64f567, type: 3}
       propertyPath: m_Text
       value: "CREDITS\n\nLuke Burrough\nVasley Thompson\nXander Sang\n\nhttps://bakudas.itch.io/generic-rpg-pack\r\nhttps://0x72.itch.io/16x16-dungeon-tileset\r\nhttps://gentlecatstudio.itch.io/rpg-items\r\nhttps://arks.itch.io/dino-characters\r\nhttps://poppyworks.itch.io/silver\r\nJurassic
@@ -1012,6 +1011,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 723598600053743356, guid: 7f3836455982ac24187e7d2eada31966,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840265161, guid: 7f3836455982ac24187e7d2eada31966, type: 3}
+      propertyPath: gameObject
+      value: 
+      objectReference: {fileID: 4791950256837790445, guid: c4947e7a3fcd16f4f87094b4df2681c1,
+        type: 3}
+    - target: {fileID: 1840265161, guid: 7f3836455982ac24187e7d2eada31966, type: 3}
+      propertyPath: variableManager
+      value: 
+      objectReference: {fileID: 1499956010}
+    - target: {fileID: 1840265161, guid: 7f3836455982ac24187e7d2eada31966, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
